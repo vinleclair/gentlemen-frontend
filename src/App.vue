@@ -38,23 +38,23 @@
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <AppointmentForm/>
+      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import AppointmentForm from '@/components/AppointmentForm';
+import HelloWorld from '@/components/HelloWorld';
+
 
 export default {
   name: 'App',
 
   components: {
+    AppointmentForm,
     HelloWorld,
   },
-
-  data: () => ({
-    //
-  }),
 };
 </script>
