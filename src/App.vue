@@ -1,9 +1,7 @@
 <template>
   <v-app>
     <GmHeader />
-    <v-content>
-      <router-view></router-view>
-    </v-content>
+    <router-view></router-view>
     <GmFooter />
   </v-app>
 </template>

@@ -1,12 +1,16 @@
 <template>
-  <div class="home">
-  </div>
+  <v-content>
+    <AppointmentForm />
+  </v-content>
 </template>
 
 <script>
-export default {
+import AppointmentForm from "@/components/AppointmentForm";
+
+  export default {
   name: 'Home',
   components: {
+    AppointmentForm,
   }
 }
 </script>

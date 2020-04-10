@@ -1,87 +1,118 @@
 <template>
     <v-container>
-
-            <v-form
-            ref="form"
-            v-model="valid"
-            lazy-validation
-    >
-        <v-text-field
-                v-model="name"
-                :counter="10"
-                :rules="nameRules"
-                label="Name"
-                required
-        ></v-text-field>
-
-        <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                label="E-mail"
-                required
-        ></v-text-field>
-
-        <v-select
-                v-model="select"
-                :items="items"
-                :rules="[v => !!v || 'Item is required']"
-                label="Item"
-                required
-        ></v-select>
-
-        <v-btn
-                :disabled="!valid"
-                color="success"
-                class="mr-4"
-                @click="validate"
+        <GmListErrors :errors="errors" />
+        <v-form
+                ref="form"
+                v-model="valid"
+                @submit.prevent="onPublish(appointment.slug)"
+                lazy-validation
         >
-            Validate
-        </v-btn>
+            <v-text-field
+                    :disabled="inProgress"
+                    v-model="name"
+                    :rules="nameRules"
+                    label="Name"
+                    required
+            ></v-text-field>
 
-        <v-btn
-                color="error"
-                class="mr-4"
-                @click="reset"
-        >
-            Reset Form
-        </v-btn>
-    </v-form>
+            <v-text-field
+                    :disabled="inProgress"
+                    v-model="email"
+                    :rules="emailRules"
+                    label="E-mail"
+                    required
+            ></v-text-field>
+
+            <v-btn
+                    :disabled="!valid || inProgress"
+                    color="success"
+                    class="mr-4"
+                    @click="onPublish(appointment.slug)"
+            >
+                Submit
+            </v-btn>
+        </v-form>
 
     </v-container>
 </template>
 
 <script>
+    import { mapGetters } from "vuex";
+    import store from "@/store";
+    import GmListErrors from "@/components/ListErrors";
+    import {
+        APPOINTMENT_SCHEDULE,
+        APPOINTMENT_EDIT,
+        FETCH_APPOINTMENT,
+        APPOINTMENT_RESET_STATE
+    } from "@/store/actions.type";
+
     export default {
         name: "AppointmentForm",
-
-        data: () => ({
-            valid: true,
-            name: '',
-            nameRules: [
-                v => !!v || 'Name is required',
-                v => (v && v.length <= 10) || 'Name must be less than 10 characters',
-            ],
-            email: '',
-            emailRules: [
-                v => !!v || 'E-mail is required',
-                v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-            ],
-            select: null,
-            items: [
-                'Item 1',
-                'Item 2',
-                'Item 3',
-                'Item 4',
-            ],
-            checkbox: false,
-        }),
-        methods: {
-            validate () {
-                this.$refs.form.validate()
-            },
-            reset () {
-                this.$refs.form.reset()
-            },
+        components: { GmListErrors },
+        props: {
+            previousAppointment: {
+                type: Object,
+                required: false
+            }
         },
-    }
+        async beforeRouteUpdate(to, from, next) {
+            await store.dispatch(APPOINTMENT_RESET_STATE);
+            return next();
+        },
+        async beforeRouteEnter(to, from, next) {
+            await store.dispatch(APPOINTMENT_RESET_STATE);
+            if (to.params.slug !== undefined) {
+                await store.dispatch(
+                    FETCH_APPOINTMENT,
+                    to.params.slug,
+                    to.params.previousAppointment
+                );
+            }
+            return next();
+        },
+        async beforeRouteLeave(to, from, next) {
+            await store.dispatch(APPOINTMENT_RESET_STATE);
+            next();
+        },
+        data() {
+            return {
+                inProgress: false,
+                errors: {},
+                valid: true,
+                name: '',
+                nameRules: [
+                    v => !!v || 'Name is required',
+                ],
+                email: '',
+                emailRules: [
+                    v => !!v || 'E-mail is required',
+                    v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+                ],
+            };
+        },
+        computed: {
+            ...mapGetters(["appointment"])
+        },
+        methods: {
+            onPublish(slug) {
+                console.log('yo')
+                let action = slug ? APPOINTMENT_EDIT : APPOINTMENT_SCHEDULE;
+                this.inProgress = true;
+                this.$store
+                    .dispatch(action)
+                    .then(({ data }) => {
+                        this.inProgress = false;
+                        this.$router.push({
+                            name: "appointment",
+                            params: { slug: data.appointment.slug }
+                        });
+                    })
+                    .catch(({ response }) => {
+                        this.inProgress = false;
+                        this.errors = response.data.errors;
+                    });
+            },
+        }
+    };
 </script>
