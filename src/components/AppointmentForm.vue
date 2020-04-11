@@ -96,7 +96,6 @@
         },
         methods: {
             onPublish(slug) {
-                console.log('yo')
                 let action = slug ? APPOINTMENT_EDIT : APPOINTMENT_SCHEDULE;
                 this.inProgress = true;
                 this.$store
