@@ -26,7 +26,7 @@
                     :disabled="!valid || inProgress"
                     color="success"
                     class="mr-4"
-                    @click="onPublish(appointment.slug)"
+                    @click="onPublish()"
             >
                 Submit
             </v-btn>
@@ -59,17 +59,6 @@
             await store.dispatch(APPOINTMENT_RESET_STATE);
             return next();
         },
-        async beforeRouteEnter(to, from, next) {
-            await store.dispatch(APPOINTMENT_RESET_STATE);
-            if (to.params.slug !== undefined) {
-                await store.dispatch(
-                    FETCH_APPOINTMENT,
-                    to.params.slug,
-                    to.params.previousAppointment
-                );
-            }
-            return next();
-        },
         async beforeRouteLeave(to, from, next) {
             await store.dispatch(APPOINTMENT_RESET_STATE);
             next();
@@ -94,8 +83,8 @@
             ...mapGetters(["appointment"])
         },
         methods: {
-            onPublish(slug) {
-                let action = slug ? APPOINTMENT_EDIT : APPOINTMENT_SCHEDULE;
+            onPublish() {
+                let action = APPOINTMENT_SCHEDULE;
                 this.inProgress = true;
                 this.$store
                     .dispatch(action)
