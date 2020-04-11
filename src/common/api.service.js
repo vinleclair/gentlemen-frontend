@@ -58,10 +58,10 @@ export const AppointmentsService = {
         return ApiService.get("appointments", slug);
     },
     create(params) {
-        return ApiService.post("appointments", { article: params });
+        return ApiService.post("appointments", { appointment: params });
     },
     update(slug, params) {
-        return ApiService.update("appointments", slug, { article: params });
+        return ApiService.update("appointments", slug, { appointment: params });
     },
     destroy(slug) {
         return ApiService.delete(`appointments/${slug}`);
