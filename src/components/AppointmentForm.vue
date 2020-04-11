@@ -59,6 +59,10 @@
             await store.dispatch(APPOINTMENT_RESET_STATE);
             return next();
         },
+        async beforeRouteEnter(to, from, next) {
+            await store.dispatch(APPOINTMENT_RESET_STATE);
+            return next();
+        },
         async beforeRouteLeave(to, from, next) {
             await store.dispatch(APPOINTMENT_RESET_STATE);
             next();
