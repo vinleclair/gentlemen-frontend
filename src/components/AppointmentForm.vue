@@ -9,7 +9,7 @@
         >
             <v-text-field
                     :disabled="inProgress"
-                    v-model="name"
+                    v-model="appointment.name"
                     :rules="nameRules"
                     label="Name"
                     required
@@ -17,7 +17,7 @@
 
             <v-text-field
                     :disabled="inProgress"
-                    v-model="email"
+                    v-model="appointment.email"
                     :rules="emailRules"
                     label="E-mail"
                     required
