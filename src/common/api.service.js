@@ -9,21 +9,15 @@ const ApiService = {
         Vue.axios.defaults.baseURL = API_URL;
     },
 
-    setHeader() {
-        Vue.axios.defaults.headers.common[
-            "Authorization"
-            ] = `Token ${JwtService.getToken()}`;
-    },
-
     query(resource, params) {
         return Vue.axios.get(resource, params).catch(error => {
-            throw new Error(`[RWV] ApiService ${error}`);
+            throw new Error(`[GM] ApiService ${error}`);
         });
     },
 
     get(resource, slug = "") {
         return Vue.axios.get(`${resource}/${slug}`).catch(error => {
-            throw new Error(`[RWV] ApiService ${error}`);
+            throw new Error(`[GM] ApiService ${error}`);
         });
     },
 
@@ -41,7 +35,7 @@ const ApiService = {
 
     delete(resource) {
         return Vue.axios.delete(resource).catch(error => {
-            throw new Error(`[RWV] ApiService ${error}`);
+            throw new Error(`[GM] ApiService ${error}`);
         });
     }
 };
@@ -50,7 +44,7 @@ export default ApiService;
 
 export const AppointmentsService = {
     query(type, params) {
-        return ApiService.query("appointments" + (type === "feed" ? "/feed" : ""), {
+        return ApiService.query("appointments", {
             params: params
         });
     },
