@@ -43,21 +43,7 @@ const ApiService = {
 export default ApiService;
 
 export const AppointmentsService = {
-    query(type, params) {
-        return ApiService.query("appointments", {
-            params: params
-        });
-    },
-    get(slug) {
-        return ApiService.get("appointments", slug);
-    },
     create(params) {
         return ApiService.post("appointments", { appointment: params });
     },
-    update(slug, params) {
-        return ApiService.update("appointments", slug, { appointment: params });
-    },
-    destroy(slug) {
-        return ApiService.delete(`appointments/${slug}`);
-    }
 };

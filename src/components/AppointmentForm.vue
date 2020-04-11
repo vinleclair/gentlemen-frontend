@@ -4,7 +4,6 @@
         <v-form
                 ref="form"
                 v-model="valid"
-                @submit.prevent="onPublish(appointment.slug)"
                 lazy-validation
         >
             <v-text-field
