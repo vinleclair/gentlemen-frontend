@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Vuex Appointment Module should return the data of the api call when calling the function 1`] = `
+Object {
+  "appointment": Object {
+    "name": "John Doe",
+    "name": "john.doe@exampl.com",
+  },
+}
+`;
