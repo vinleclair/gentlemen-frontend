@@ -1,7 +1,6 @@
 <template>
     <v-container>
         <GmListErrors :errors="errors" />
-        {{this.$store.state}}
         <v-form
                 ref="clientDetailsForm"
                 v-model="valid"

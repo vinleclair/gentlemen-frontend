@@ -51,19 +51,17 @@
             </v-row>
         </section>
         -->
-        <BarberSelector />
+        <AppointmentBooker />
     </v-content>
 </template>
 
 <script>
-    import BarberSelector from "@/components/BarberSelector";
-    import DatetimeSelector from "@/components/DatetimeSelector";
+    import AppointmentBooker from "@/components/AppointmentBooker";
 
     export default {
         name: 'Home',
         components: {
-            BarberSelector,
-            DatetimeSelector,
+            AppointmentBooker,
         }
     }
 </script>

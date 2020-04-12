@@ -7,6 +7,7 @@ import {
     APPOINTMENT_UPDATE_NAME,
     APPOINTMENT_UPDATE_EMAIL,
     APPOINTMENT_SELECT_BARBER,
+    APPOINTMENT_UNSET_BARBER,
     APPOINTMENT_UPDATE_DATE,
     APPOINTMENT_UPDATE_TIME,
     APPOINTMENT_RESET_STATE,
@@ -14,6 +15,7 @@ import {
 import {
     SET_APPOINTMENT,
     SET_BARBER,
+    UNSET_BARBER,
     SET_DATE,
     SET_TIME,
     SET_NAME,
@@ -40,6 +42,9 @@ export const actions = {
     [APPOINTMENT_SELECT_BARBER](context, barberId) {
         context.commit(SET_BARBER, barberId);
     },
+    [APPOINTMENT_UNSET_BARBER](context) {
+        context.commit(UNSET_BARBER);
+    },
     [APPOINTMENT_UPDATE_DATE](context, date) {
         context.commit(SET_DATE, date);
     },
@@ -63,6 +68,9 @@ export const mutations = {
     },
     [SET_BARBER](state, barberId) {
         state.appointment.barberId = barberId;
+    },
+    [UNSET_BARBER](state) {
+        state.appointment.barberId = "";
     },
     [SET_DATE](state, date) {
         state.appointment.date = date;

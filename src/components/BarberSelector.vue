@@ -1,5 +1,4 @@
 <template>
-    <section id="AppointmentForm">
         <v-item-group active-class="primary">
             <v-container>
                 <v-row>
@@ -10,6 +9,7 @@
                             v-for="(barber, index) in barbers"
                     >
                         <v-item>
+
                             <v-card
                                     @click="selectBarber(barber.id)"
                                     height="300"
@@ -28,35 +28,22 @@
                                         class="d-flex align-center "
                                         max-height="100%"
                                 />
+                                {{barber.name}}
+
                             </v-card>
                         </v-item>
                     </v-col>
                 </v-row>
             </v-container>
         </v-item-group>
-        <v-expand-transition>
-            <v-row
-                    justify="center"
-                    style="min-height: 100px; min-width: 100%; "
-            >
-                <v-col class="grow">
-                    <v-card
-                            class="mx-auto"
-                            v-show="selectedBarber"
-                            width="100%"
-                    >
-                        <DatetimeSelector/>
-                    </v-card>
-                </v-col>
-            </v-row>
-        </v-expand-transition>
-    </section>
-
 </template>
 
 <script> //TODO Fix animation
 import ClientDetailsForm from "@/components/ClientDetailsForm";
-import {APPOINTMENT_SELECT_BARBER} from "@/store/actions.type";
+import {
+    APPOINTMENT_SELECT_BARBER,
+    APPOINTMENT_UNSET_BARBER
+} from "@/store/actions.type";
 import DatetimeSelector from "@/components/DatetimeSelector";
 
 export default {
@@ -87,8 +74,13 @@ export default {
     methods: {
         //TODO REMOVE
         selectBarber(barberId) {
-            this.selectedBarber === barberId ? this.selectedBarber = null : this.selectedBarber = barberId;
-            this.$store.dispatch(APPOINTMENT_SELECT_BARBER, barberId);
+            if (this.selectedBarber !== barberId) {
+                this.selectedBarber = barberId
+                this.$store.dispatch(APPOINTMENT_SELECT_BARBER, barberId);
+            } else {
+                this.selectedBarber = null
+                this.$store.dispatch(APPOINTMENT_UNSET_BARBER);
+            }
         }
     }
 }

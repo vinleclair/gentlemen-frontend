@@ -32,8 +32,6 @@
                 </v-col>
             </v-row>
         </v-container>
-        {{this.$store.state}}
-
     </v-form>
 </template>
 
