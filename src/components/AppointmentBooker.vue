@@ -1,13 +1,17 @@
 <template>
         <v-stepper v-model="e6" vertical>
-            <v-stepper-step :complete="e6 > 1" step="1">Select a professional</v-stepper-step>
+            <v-stepper-step :complete="e6 > 1" step="1">Select a professional
+                <small v-if="e6 > 1"> {{appointment.barberId}}</small>
+            </v-stepper-step>
 
             <v-stepper-content step="1">
                 <BarberSelector />
                 <v-btn color="primary" @click="e6 = 2" :disabled="!appointment.barberId">Continue</v-btn>
             </v-stepper-content>
 
-            <v-stepper-step :complete="e6 > 2" step="2">Select a service</v-stepper-step>
+            <v-stepper-step :complete="e6 > 2" step="2">Select a service
+                <small v-if="e6 > 2">service</small>
+            </v-stepper-step>
 
             <v-stepper-content step="2">
                 IMPLEMENT SERVICE SELECTION <br>
@@ -15,15 +19,19 @@
                 <v-btn text @click="e6 = 1">Back</v-btn>
             </v-stepper-content>
 
-            <v-stepper-step :complete="e6 > 3" step="3">Select a timeslot</v-stepper-step>
+            <v-stepper-step :complete="e6 > 3" step="3">Select a timeslot
+                <small v-if="e6 > 3">{{appointment.date + " @ " + appointment.time}}</small>
+            </v-stepper-step>
 
             <v-stepper-content step="3">
                 <DatetimeSelector />
-                <v-btn color="primary" @click="e6 = 4">Continue</v-btn>
+                <v-btn color="primary" @click="e6 = 4" :disabled="(!appointment.date && !appointment.time)">Continue</v-btn>
                 <v-btn text @click="e6 = 2">Back</v-btn>
             </v-stepper-content>
 
-            <v-stepper-step step="4">Enter informations</v-stepper-step>
+            <v-stepper-step :complete="e6 > 4" step="4">Enter details
+                <small v-if="e6 > 4">{{appointment.name + " - " + appointment.email}}</small>
+            </v-stepper-step>
 
             <v-stepper-content step="4">
                 <ClientDetailsForm />
@@ -40,7 +48,8 @@
                         @click="book(appointment)"
                 >
                     Book
-                </v-btn>                <v-btn text @click="e6 = 4">Back</v-btn>
+                </v-btn>
+                <v-btn text @click="e6 = 4">Back</v-btn>
             </v-stepper-content>
         </v-stepper>
 </template>
