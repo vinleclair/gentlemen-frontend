@@ -43,9 +43,9 @@
                     <v-card
                             class="mx-auto"
                             v-show="selectedBarber"
-                            width="30%"
+                            width="100%"
                     >
-                        <ClientDetailsForm/>
+                        <DatetimeSelector/>
                     </v-card>
                 </v-col>
             </v-row>
@@ -57,10 +57,11 @@
 <script> //TODO Fix animation
 import ClientDetailsForm from "@/components/ClientDetailsForm";
 import {APPOINTMENT_SELECT_BARBER} from "@/store/actions.type";
+import DatetimeSelector from "@/components/DatetimeSelector";
 
 export default {
     name: "BarberSelector",
-    components: {ClientDetailsForm},
+    components: {DatetimeSelector, ClientDetailsForm},
     data() {
         return {
             selectedBarber: null,

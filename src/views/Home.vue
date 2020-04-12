@@ -51,7 +51,7 @@
             </v-row>
         </section>
         -->
-        <DatetimeSelector />
+        <BarberSelector />
     </v-content>
 </template>
 

@@ -5,20 +5,19 @@
         <v-form
                 ref="clientDetailsForm"
                 v-model="valid"
-                lazy-validation
         >
             <v-text-field
-                    v-model="appointment.name"
+                    @input="updateName"
+                    :value="name"
                     :rules="nameRules"
                     label="Name"
-                    required
             ></v-text-field>
 
             <v-text-field
-                    v-model="appointment.email"
+                    @input="updateEmail"
+                    :value="email"
                     :rules="emailRules"
                     label="E-mail"
-                    required
             ></v-text-field>
 
             <v-btn
@@ -38,6 +37,8 @@
     import { mapGetters } from "vuex";
     import GmListErrors from "@/components/ListErrors";
     import {
+        APPOINTMENT_UPDATE_NAME,
+        APPOINTMENT_UPDATE_EMAIL,
         APPOINTMENT_SCHEDULE,
     } from "@/store/actions.type";
 
@@ -53,7 +54,7 @@
         data() {
             return {
                 errors: {},
-                valid: true,
+                valid: false,
                 name: '',
                 nameRules: [
                     v => !!v || 'Name is required',
@@ -69,6 +70,12 @@
             ...mapGetters(["appointment"])
         },
         methods: {
+            updateName (name) {
+                this.$store.dispatch(APPOINTMENT_UPDATE_NAME, name);
+            },
+            updateEmail (email) {
+                this.$store.dispatch(APPOINTMENT_UPDATE_EMAIL, email);
+            },
             onSchedule(appointment) {
                 this.$store
                     .dispatch(APPOINTMENT_SCHEDULE, { appointment })
