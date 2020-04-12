@@ -1,6 +1,5 @@
 <template>
     <v-container>
-        <GmListErrors :errors="errors" />
         <v-form
                 ref="clientDetailsForm"
                 v-model="valid"
@@ -24,16 +23,13 @@
 
 <script>
     import { mapGetters } from "vuex";
-    import GmListErrors from "@/components/ListErrors";
     import {
         APPOINTMENT_UPDATE_NAME,
         APPOINTMENT_UPDATE_EMAIL,
-        APPOINTMENT_SCHEDULE,
     } from "@/store/actions.type";
 
     export default {
         name: "ClientDetailsForm",
-        components: { GmListErrors },
         props: {
             selectedBarberId: {
                 type: Number,
