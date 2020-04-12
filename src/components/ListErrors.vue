@@ -1,4 +1,4 @@
-<t<template v-show="errors">
+<template v-show="errors">
     <ul class="error-messages">
         <li v-for="(value, key) in errors" :key="key">
             <span v-text="key" />

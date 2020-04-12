@@ -1,6 +1,7 @@
 <template>
     <v-container>
         <GmListErrors :errors="errors" />
+        {{this.$store.state}}
         <v-form
                 ref="form"
                 v-model="valid"
@@ -23,10 +24,10 @@
             ></v-text-field>
 
             <v-btn
-                    :disabled="!valid || inProgress"
+                    :disabled="!valid"
                     color="success"
                     class="mr-4"
-                    @click="onPublish()"
+                    @click="onSchedule(appointment)"
             >
                 Submit
             </v-btn>
@@ -41,8 +42,6 @@
     import GmListErrors from "@/components/ListErrors";
     import {
         APPOINTMENT_SCHEDULE,
-        APPOINTMENT_EDIT,
-        FETCH_APPOINTMENT,
         APPOINTMENT_RESET_STATE
     } from "@/store/actions.type";
 
@@ -50,26 +49,17 @@
         name: "AppointmentForm",
         components: { GmListErrors },
         props: {
+            selectedBarberId: {
+                type: Number,
+                required: false
+            },
             previousAppointment: {
                 type: Object,
                 required: false
             }
         },
-        async beforeRouteUpdate(to, from, next) {
-            await store.dispatch(APPOINTMENT_RESET_STATE);
-            return next();
-        },
-        async beforeRouteEnter(to, from, next) {
-            await store.dispatch(APPOINTMENT_RESET_STATE);
-            return next();
-        },
-        async beforeRouteLeave(to, from, next) {
-            await store.dispatch(APPOINTMENT_RESET_STATE);
-            next();
-        },
         data() {
             return {
-                inProgress: false,
                 errors: {},
                 valid: true,
                 name: '',
@@ -87,20 +77,10 @@
             ...mapGetters(["appointment"])
         },
         methods: {
-            onPublish() {
-                let action = APPOINTMENT_SCHEDULE;
-                this.inProgress = true;
+            onSchedule(appointment) {
                 this.$store
-                    .dispatch(action)
-                    .then(({ data }) => {
-                        this.inProgress = false;
-                        this.$router.push({
-                            name: "appointment",
-                            params: { slug: data.appointment.slug }
-                        });
-                    })
+                    .dispatch(APPOINTMENT_SCHEDULE, { appointment })
                     .catch(({ response }) => {
-                        this.inProgress = false;
                         this.errors = response.data.errors;
                     });
             },
