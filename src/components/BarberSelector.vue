@@ -38,17 +38,14 @@
         </v-item-group>
 </template>
 
-<script> //TODO Fix animation
-import ClientDetailsForm from "@/components/ClientDetailsForm";
+<script>
 import {
     APPOINTMENT_SELECT_BARBER,
     APPOINTMENT_UNSET_BARBER
 } from "@/store/actions.type";
-import DatetimeSelector from "@/components/DatetimeSelector";
 
 export default {
     name: "BarberSelector",
-    components: {DatetimeSelector, ClientDetailsForm},
     data() {
         return {
             selectedBarber: null,
@@ -72,7 +69,6 @@ export default {
         };
     },
     methods: {
-        //TODO REMOVE
         selectBarber(barberId) {
             if (this.selectedBarber !== barberId) {
                 this.selectedBarber = barberId
