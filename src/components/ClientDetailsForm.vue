@@ -18,17 +18,7 @@
                     :rules="emailRules"
                     label="E-mail"
             ></v-text-field>
-
-            <v-btn
-                    :disabled="!valid"
-                    color="success"
-                    class="mr-4"
-                    @click="onSchedule(appointment)"
-            >
-                Submit
-            </v-btn>
         </v-form>
-
     </v-container>
 </template>
 
@@ -59,6 +49,7 @@
                     v => !!v || 'Name is required',
                 ],
                 email: '',
+                // TODO Stricter email validation rules
                 emailRules: [
                     v => !!v || 'E-mail is required',
                     v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
@@ -73,15 +64,10 @@
                 this.$store.dispatch(APPOINTMENT_UPDATE_NAME, name);
             },
             updateEmail (email) {
-                this.$store.dispatch(APPOINTMENT_UPDATE_EMAIL, email);
-            },
-            onSchedule(appointment) {
-                this.$store
-                    .dispatch(APPOINTMENT_SCHEDULE, { appointment })
-                    .catch(({ response }) => {
-                        this.errors = response.data.errors;
-                    });
-            },
+                if (this.valid) {
+                    this.$store.dispatch(APPOINTMENT_UPDATE_EMAIL, email);
+                }
+            }
         }
     };
 </script>
