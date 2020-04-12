@@ -1,7 +1,7 @@
 <template>
     <v-app-bar
             app
-            color="primary"
+            color="brown"
             height="100"
     >
         <v-avatar
