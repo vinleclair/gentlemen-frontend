@@ -42,7 +42,7 @@
             <v-stepper-step step="5">Review</v-stepper-step>
 
             <v-stepper-content step="5">
-                {{this.$store.state}}
+                <ReviewInformation />
                 <v-btn
                         color="success"
                         @click="book(appointment)"
@@ -59,6 +59,7 @@
     import ServiceSelector from "@/components/ServiceSelector";
     import DatetimeSelector from "@/components/DatetimeSelector";
     import ClientDetailsForm from "@/components/ClientDetailsForm"
+    import ReviewInformation from "@/components/ReviewInformation"
     import {mapGetters} from "vuex";
     import {APPOINTMENT_SCHEDULE} from "../store/actions.type";
 
@@ -72,6 +73,7 @@
             ServiceSelector,
             DatetimeSelector,
             ClientDetailsForm,
+            ReviewInformation,
         },
         data() {
             return {
