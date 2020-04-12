@@ -14,7 +14,7 @@
             </v-stepper-step>
 
             <v-stepper-content step="2">
-                IMPLEMENT SERVICE SELECTION <br>
+                <ServiceSelector />
                 <v-btn color="primary" @click="e6 = 3">Continue</v-btn>
                 <v-btn text @click="e6 = 1">Back</v-btn>
             </v-stepper-content>
@@ -56,8 +56,9 @@
 
 <script>
     import BarberSelector from "@/components/BarberSelector";
+    import ServiceSelector from "@/components/ServiceSelector";
     import DatetimeSelector from "@/components/DatetimeSelector";
-    import ClientDetailsForm from "@/components/ClientDetailsForm";
+    import ClientDetailsForm from "@/components/ClientDetailsForm"
     import {mapGetters} from "vuex";
     import {APPOINTMENT_SCHEDULE} from "../store/actions.type";
 
@@ -68,6 +69,7 @@
         },
         components: {
             BarberSelector,
+            ServiceSelector,
             DatetimeSelector,
             ClientDetailsForm,
         },
