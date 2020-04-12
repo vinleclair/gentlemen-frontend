@@ -37,7 +37,6 @@
 
 <script>
     import {mapGetters} from "vuex";
-    import GmListErrors from "@/components/ListErrors";
     import {
         APPOINTMENT_UPDATE_DATE,
         APPOINTMENT_UPDATE_TIME
@@ -45,7 +44,6 @@
 
     export default {
         name: "DatetimeSelector",
-        components: {GmListErrors},
         data() {
             return {
                 date: '',
@@ -66,8 +64,6 @@
         methods: {
             //TODO Setup allowed dates and times
             allowedDates: val => parseInt(val.split('-')[2], 10) % 2 === 0,
-            allowedHours: v => v % 2,
-            allowedMinutes: v => v >= 10 && v <= 50,
             updateDate (date) {
                 this.$store.dispatch(APPOINTMENT_UPDATE_DATE, date);
             },
