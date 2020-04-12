@@ -3,7 +3,7 @@
         <GmListErrors :errors="errors" />
         {{this.$store.state}}
         <v-form
-                ref="form"
+                ref="clientDetailsForm"
                 v-model="valid"
                 lazy-validation
         >
@@ -36,7 +36,6 @@
 
 <script>
     import { mapGetters } from "vuex";
-    import store from "@/store";
     import GmListErrors from "@/components/ListErrors";
     import {
         APPOINTMENT_SCHEDULE,
@@ -48,10 +47,6 @@
         props: {
             selectedBarberId: {
                 type: Number,
-                required: false
-            },
-            previousAppointment: {
-                type: Object,
                 required: false
             }
         },

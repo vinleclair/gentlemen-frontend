@@ -1,5 +1,6 @@
 <template>
     <v-content>
+        <!--
         <section id="hero">
             <v-row no-gutters>
                 <v-img
@@ -49,18 +50,20 @@
                 </v-img>
             </v-row>
         </section>
-        <BarberSelector />
+        -->
+        <DatetimeSelector />
     </v-content>
 </template>
 
 <script>
     import BarberSelector from "@/components/BarberSelector";
-
+    import DatetimeSelector from "@/components/DatetimeSelector";
 
     export default {
         name: 'Home',
         components: {
             BarberSelector,
+            DatetimeSelector,
         }
     }
 </script>

@@ -84,6 +84,7 @@ export default {
         };
     },
     methods: {
+        //TODO REMOVE
         selectBarber(barberId) {
             this.selectedBarber === barberId ? this.selectedBarber = null : this.selectedBarber = barberId;
             this.$store.dispatch(APPOINTMENT_SELECT_BARBER, barberId);
