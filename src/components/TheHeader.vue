@@ -1,12 +1,11 @@
 <template>
     <v-app-bar
             app
-            color="brown"
+            color="primary"
             height="100"
     >
         <v-avatar
                 class="mr-3"
-                color="white"
                 size="70"
         >
             <v-img
@@ -17,9 +16,6 @@
             ></v-img>
         </v-avatar>
 
-        <v-toolbar-title class="font-weight-black headline">
-            GENTLEMEN
-        </v-toolbar-title>
     </v-app-bar>
 </template>
 

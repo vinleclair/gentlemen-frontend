@@ -8,7 +8,6 @@
                 lazy-validation
         >
             <v-text-field
-                    :disabled="inProgress"
                     v-model="appointment.name"
                     :rules="nameRules"
                     label="Name"
@@ -16,7 +15,6 @@
             ></v-text-field>
 
             <v-text-field
-                    :disabled="inProgress"
                     v-model="appointment.email"
                     :rules="emailRules"
                     label="E-mail"
@@ -42,11 +40,10 @@
     import GmListErrors from "@/components/ListErrors";
     import {
         APPOINTMENT_SCHEDULE,
-        APPOINTMENT_RESET_STATE
     } from "@/store/actions.type";
 
     export default {
-        name: "AppointmentForm",
+        name: "ClientDetailsForm",
         components: { GmListErrors },
         props: {
             selectedBarberId: {

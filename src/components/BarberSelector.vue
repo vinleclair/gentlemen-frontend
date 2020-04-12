@@ -45,7 +45,7 @@
                             v-show="selectedBarber"
                             width="30%"
                     >
-                        <AppointmentForm/>
+                        <ClientDetailsForm/>
                     </v-card>
                 </v-col>
             </v-row>
@@ -55,12 +55,12 @@
 </template>
 
 <script> //TODO Fix animation
-import AppointmentForm from "@/components/AppointmentForm";
+import ClientDetailsForm from "@/components/ClientDetailsForm";
 import {APPOINTMENT_SELECT_BARBER} from "@/store/actions.type";
 
 export default {
-    name: "SelectBarber",
-    components: {AppointmentForm},
+    name: "BarberSelector",
+    components: {ClientDetailsForm},
     data() {
         return {
             selectedBarber: null,

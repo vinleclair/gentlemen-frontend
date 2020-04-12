@@ -49,18 +49,18 @@
                 </v-img>
             </v-row>
         </section>
-        <SelectBarber/>
+        <BarberSelector />
     </v-content>
 </template>
 
 <script>
-    import SelectBarber from "@/components/SelectBarber";
+    import BarberSelector from "@/components/BarberSelector";
 
 
     export default {
         name: 'Home',
         components: {
-            SelectBarber,
+            BarberSelector,
         }
     }
 </script>
