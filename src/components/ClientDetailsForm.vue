@@ -18,7 +18,7 @@
                 @input="onEmailChange"
                 :value="email"
                 :rules="emailRules"
-                label="E-mail" s
+                label="E-mail"
         ></v-text-field>
     </v-form>
 </template>
