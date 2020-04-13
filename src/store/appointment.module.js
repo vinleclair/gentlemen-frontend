@@ -4,8 +4,8 @@ import {
 } from "@/common/api.service";
 import {
     APPOINTMENT_SCHEDULE,
-    APPOINTMENT_UPDATE_NAME,
-    APPOINTMENT_UPDATE_EMAIL,
+    APPOINTMENT_UPDATE_CLIENT_NAME,
+    APPOINTMENT_UPDATE_CLIENT_EMAIL,
     APPOINTMENT_SELECT_BARBER,
     APPOINTMENT_UNSET_BARBER,
     APPOINTMENT_SELECT_SERVICE,
@@ -22,15 +22,15 @@ import {
     UNSET_SERVICE,
     SET_DATE,
     SET_TIME,
-    SET_NAME,
-    SET_EMAIL,
+    SET_CLIENT_NAME,
+    SET_CLIENT_EMAIL,
     RESET_STATE,
 } from "./mutations.type";
 
 const initialState = {
     appointment: {
-        name: "",
-        email: "",
+        clientName: "",
+        clientEmail: "",
         barberId: "",
         date: "",
         time: "",
@@ -62,11 +62,11 @@ export const actions = {
     [APPOINTMENT_UPDATE_TIME](context, time) {
         context.commit(SET_TIME, time);
     },
-    [APPOINTMENT_UPDATE_NAME](context, name) {
-        context.commit(SET_NAME, name);
+    [APPOINTMENT_UPDATE_CLIENT_NAME](context, name) {
+        context.commit(SET_CLIENT_NAME, name);
     },
-    [APPOINTMENT_UPDATE_EMAIL](context, email) {
-        context.commit(SET_EMAIL, email);
+    [APPOINTMENT_UPDATE_CLIENT_EMAIL](context, email) {
+        context.commit(SET_CLIENT_EMAIL, email);
     },
     [APPOINTMENT_RESET_STATE]({commit}) {
         commit(RESET_STATE);
@@ -95,11 +95,11 @@ export const mutations = {
     [SET_TIME](state, time) {
         state.appointment.time = time;
     },
-    [SET_NAME](state, name) {
-        state.appointment.name = name;
+    [SET_CLIENT_NAME](state, name) {
+        state.appointment.clientName = name;
     },
-    [SET_EMAIL](state, email) {
-        state.appointment.email = email;
+    [SET_CLIENT_EMAIL](state, email) {
+        state.appointment.clientEmail = email;
     },
     [RESET_STATE]() {
         for (let f in state) {

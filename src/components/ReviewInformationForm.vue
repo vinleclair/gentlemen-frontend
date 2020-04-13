@@ -5,12 +5,12 @@
 
                 <v-col cols="12" sm="6">
                     <p class="font-weight-black">Name: </p>
-                    <p class="font-weight-regular">{{appointment.name}}</p>
+                    <p class="font-weight-regular">{{appointment.clientName}}</p>
                 </v-col>
 
                 <v-col cols="12" sm="6">
                     <p class="font-weight-black">Email: </p>
-                    <p class="font-weight-regular">{{appointment.email}}</p>
+                    <p class="font-weight-regular">{{appointment.clientEmail}}</p>
                 </v-col>
                 <v-col cols="12" sm="6">
                     <p class="font-weight-black">Barber: </p>

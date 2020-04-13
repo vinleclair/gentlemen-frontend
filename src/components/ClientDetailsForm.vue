@@ -4,9 +4,9 @@
             v-model="valid"
     >
         <v-text-field
-                @input="onNameChange"
-                :value="name"
-                :rules="nameRules"
+                @input="onClientNameChange"
+                :value="clientName"
+                :rules="clientNameRules"
                 label="Name"
                 style="width: 25%;"
 
@@ -15,62 +15,55 @@
         <v-text-field
                 justify="center"
                 style="width: 25%;"
-                @input="onEmailChange"
-                :value="email"
-                :rules="emailRules"
-                label="E-mail"
+                @input="onClientEmailChange"
+                :value="clientEmail"
+                :rules="clientEmailRules"
+                label="Email"
         ></v-text-field>
     </v-form>
 </template>
 
 <script>
-    import {mapGetters} from "vuex";
     import {
-        APPOINTMENT_UPDATE_NAME,
-        APPOINTMENT_UPDATE_EMAIL,
+        APPOINTMENT_UPDATE_CLIENT_NAME,
+        APPOINTMENT_UPDATE_CLIENT_EMAIL,
     } from "@/store/actions.type";
 
     export default {
         name: "ClientDetailsForm",
-        props: {
-            selectedBarberId: {
-                type: Number,
-                required: false
-            }
-        },
         data() {
             return {
-                errors: {},
                 valid: false,
-                name: '',
-                nameRules: [
+                clientName: '',
+                clientNameRules: [
                     v => !!v || 'Name is required',
                 ],
-                email: '',
+                clientEmail: '',
                 // TODO Stricter email validation rules
-                emailRules: [
+                clientEmailRules: [
                     v => !!v || 'E-mail is required',
                     v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
                 ],
             };
         },
-        computed: {
-            ...mapGetters(["appointment"])
-        },
-        methods: {
-            onNameChange(name) {
-                this.$store.dispatch(APPOINTMENT_UPDATE_NAME, name);
-                this.$emit('selected-name', name);
+        watch: {
+            'valid': function (valid) {
+                if (valid) {
+                    this.$emit('selected-client-name', name)
+                    this.$emit('selected-client-email', this.email)
 
-            },
-            onEmailChange(email) {
-                if (this.valid) {
-                    this.$store.dispatch(APPOINTMENT_UPDATE_EMAIL, email);
-                    this.$emit('selected-email', email);
                 } else {
-                    this.$emit('selected-email', null);
+                    this.$emit('selected-client-name', null);
+                    this.$emit('selected-client-email', null);
 
                 }
+            },
+        },
+        methods: {
+            onClientNameChange(name) {
+                this.$store.dispatch(APPOINTMENT_UPDATE_CLIENT_NAME, name);},
+            onClientEmailChange(email) {
+                this.$store.dispatch(APPOINTMENT_UPDATE_CLIENT_EMAIL, email);
             }
         }
     };

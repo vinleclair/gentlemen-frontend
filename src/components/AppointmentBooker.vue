@@ -33,13 +33,13 @@
             </v-stepper-content>
 
             <v-stepper-step :complete="step > 4" step="4">Enter details
-                <small v-if="step > 4">{{appointment.name + " - " + appointment.email}}</small>
+                <small v-if="step > 4">{{appointment.clientName + " - " + appointment.clientEmail}}</small>
             </v-stepper-step>
 
             <v-stepper-content step="4">
-                <ClientDetailsForm @selected-name="onChildSelectedName" @selected-email="onChildSelectedEmail"/>
+                <ClientDetailsForm @selected-client-name="onChildSelectedClientName" @selected-client-email="onChildSelectedClientEmail"/>
                 <v-btn color="primary" @click="step = 5"
-                       :disabled="!(this.selectedName !== null && this.selectedEmail !== null)">Continue
+                       :disabled="!(this.selectedClientName !== null && this.selectedClientEmail !== null)">Continue
                 </v-btn> <!-- TODO Refactor, why does disabled boolean evaluates this way? -->
                 <v-btn text @click="step = 3">Back</v-btn>
             </v-stepper-content>
@@ -73,7 +73,6 @@
     import {APPOINTMENT_SCHEDULE} from "../store/actions.type";
 
     export default {
-        el: "AppoimentBooker",
         name: 'AppointmentBooker',
         computed: {
             ...mapGetters(["appointment"])
@@ -96,8 +95,8 @@
                 selectedServiceName: null,
                 selectedDate: null,
                 selectedTime: null,
-                selectedName: null,
-                selectedEmail: null,
+                selectedClientName: null,
+                selectedClientEmail: null,
             }
         },
         methods: {
@@ -116,11 +115,11 @@
             onChildSelectedTime(time) {
                 this.selectedTime = time;
             },
-            onChildSelectedName(name) {
-                this.selectedName = name;
+            onChildSelectedClientName(name) {
+                this.selectedClientName = name;
             },
-            onChildSelectedEmail(email) {
-                this.selectedEmail = email;
+            onChildSelectedClientEmail(email) {
+                this.selectedClientEmail = email;
             },
             book(appointment) {
                 this.$store
