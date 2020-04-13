@@ -1,6 +1,5 @@
 <template>
     <v-content>
-        <!--
         <section id="hero">
             <v-row no-gutters>
                 <v-img
@@ -38,7 +37,7 @@
                                 </v-col>
 
                                 <v-btn
-                                        @click="$vuetify.goTo('#AppointmentForm')"
+                                        @click="$vuetify.goTo('#appointment-booker')"
                                         class="align-self-end"
                                         outlined
                                 >
@@ -50,8 +49,96 @@
                 </v-img>
             </v-row>
         </section>
-        -->
-        <AppointmentBooker />
+
+        <section id="about-us">
+            <div class="py-12"></div>
+
+            <v-container class="text-center">
+                <h2 class="display-2 font-weight-bold mb-3">ABOUT US</h2>
+
+                <v-responsive
+                        class="mx-auto mb-8"
+                        width="56"
+                >
+                    <v-divider class="mb-1"></v-divider>
+
+                    <v-divider></v-divider>
+                </v-responsive>
+
+                <v-responsive
+                        class="mx-auto title font-weight-light mb-8"
+                        max-width="720"
+                >
+
+
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel justo iaculis, congue ex sit amet, vestibulum orci. Integer eu placerat mauris, non pellentesque diam. Fusce ut venenatis enim. Proin consequat viverra tellus quis maximus. Nullam sodales lacus sit amet est viverra, ut tempus odio vulputate. Maecenas tincidunt, justo vitae fringilla sollicitudin, arcu ligula pretium diam, vitae blandit odio mi vel nunc. Interdum et malesuada fames ac ante ipsum primis in faucibus. Suspendisse euismod eros non nibh feugiat, non scelerisque velit volutpat. Pellentesque malesuada arcu a urna suscipit, et euismod ligula aliquet.
+
+                    Aliquam id orci vel libero blandit lacinia. Etiam fringilla enim nec mollis tincidunt. In posuere lacus sed faucibus maximus. Sed blandit tincidunt sem ut porta. Praesent quis cursus ex.
+                </v-responsive>
+            </v-container>
+
+            <div class="py-12"></div>
+        </section>
+
+        <section id="stats">
+            <v-parallax
+                    :height="$vuetify.breakpoint.smAndDown ? 700 : 500"
+                    src="@/assets/images/parallax.png"
+            >
+            </v-parallax>
+        </section>
+
+        <section id="appointment-booker">
+            <AppointmentBooker />
+        </section>
+
+        <v-sheet
+                id="contact"
+                color="#333333"
+                dark
+                tag="section"
+                tile
+        >
+            <div class="py-12"></div>
+
+            <v-container>
+                <h2 class="display-2 font-weight-bold mb-3 text-uppercase text-center">Contact Us</h2>
+
+                <v-responsive
+                        class="mx-auto mb-12"
+                        width="56"
+                >
+                    <v-divider class="mb-1"></v-divider>
+
+                    <v-divider></v-divider>
+                </v-responsive>
+
+                    <v-row>
+
+                        <v-col align="center">
+                            <p class="font-weight-black">QUEBEC CITY</p>
+                            <p class="font-weight-black">Gentlemen</p>
+                            <p class="font-weight-black">162 2nd street</p>
+                            <p class="font-weight-black">D9A 2K3 (Qc)</p>
+                            <p class="font-weight-black">(123) 456-7890</p>
+                        </v-col>
+                        
+                        <v-col align="center">
+                            <p class="font-weight-black">Monday: 10 - 18</p>
+                            <p class="font-weight-black">Tuesday: 10 - 18</p>
+                            <p class="font-weight-black">Wednesday: 10 - 20</p>
+                            <p class="font-weight-black">Thursday: 10 - 20</p>
+                            <p class="font-weight-black">Friday: 10 - 20</p>
+                            <p class="font-weight-black">Saturday: 10 - 16</p>
+                            <p class="font-weight-black">Sunday: CLOSED</p>
+                        </v-col>
+
+                    </v-row>
+            </v-container>
+
+            <div class="py-12"></div>
+        </v-sheet>
+
     </v-content>
 </template>
 

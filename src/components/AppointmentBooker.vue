@@ -1,4 +1,5 @@
 <template>
+    <section id="AppointmentBooker">
         <v-stepper v-model="step" vertical>
             <v-stepper-step :complete="step > 1" step="1">Select a professional
                 <small v-if="step > 1"> {{ this.selectedBarberName }} </small>
@@ -52,6 +53,7 @@
                 <v-btn text @click="step = 4">Back</v-btn>
             </v-stepper-content>
         </v-stepper>
+    </section>
 </template>
 
 <script>
@@ -64,6 +66,7 @@
     import {APPOINTMENT_SCHEDULE} from "../store/actions.type";
 
     export default {
+        el: "AppoimentBooker",
         name: 'AppointmentBooker',
         computed: {
             ...mapGetters(["appointment"])
