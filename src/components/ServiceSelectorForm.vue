@@ -11,7 +11,7 @@
                 >
 
                     <v-list-item-content
-                            @click="selectService(service.id)"
+                            @click="onSelectService(service.id, service.name)"
                     >
                         <v-list-item-title align="center" v-text="service.name"></v-list-item-title>
                         <v-list-item-subtitle align="center" v-text="service.details"></v-list-item-subtitle>
@@ -30,7 +30,7 @@ import {
 
 export default {
     data: () => ({
-        selectedService: null,
+        selectedServiceId: null,
         services: [
             {
                 id: 1,
@@ -46,14 +46,15 @@ export default {
         ],
     }),
     methods: {
-        selectService(serviceId) {
-            if (this.selectedService !== serviceId) {
-                this.selectedService = serviceId
+        onSelectService(serviceId, serviceName) {
+            if (this.selectedServiceId !== serviceId) {
+                this.selectedServiceId = serviceId
                 this.$store.dispatch(APPOINTMENT_SELECT_SERVICE, serviceId);
             } else {
-                this.selectedService = null
+                this.selectedServiceId = null
                 this.$store.dispatch(APPOINTMENT_UNSET_SERVICE);
             }
+            this.$emit('selected-service', this.selectedServiceId, serviceName)
         }
     }
 }

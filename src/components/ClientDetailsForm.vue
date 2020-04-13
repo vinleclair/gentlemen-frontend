@@ -5,14 +5,14 @@
                 v-model="valid"
         >
             <v-text-field
-                    @input="updateName"
+                    @input="onNameChange"
                     :value="name"
                     :rules="nameRules"
                     label="Name"
             ></v-text-field>
 
             <v-text-field
-                    @input="updateEmail"
+                    @input="onEmailChange"
                     :value="email"
                     :rules="emailRules"
                     label="E-mail"
@@ -56,12 +56,18 @@
             ...mapGetters(["appointment"])
         },
         methods: {
-            updateName (name) {
+            onNameChange(name) {
                 this.$store.dispatch(APPOINTMENT_UPDATE_NAME, name);
+                this.$emit('selected-name', name);
+
             },
-            updateEmail (email) {
+            onEmailChange (email) {
                 if (this.valid) {
                     this.$store.dispatch(APPOINTMENT_UPDATE_EMAIL, email);
+                    this.$emit('selected-email', email);
+                } else {
+                    this.$emit('selected-email', null);
+
                 }
             }
         }

@@ -14,7 +14,7 @@
                 </v-col>
                 <v-col cols="12" sm="6">
                     <p class="font-weight-black">Barber: </p>
-                    <p class="font-weight-regular">{{appointment.barberId}}</p>
+                    <p class="font-weight-regular">{{selectedBarberName}}</p>
                 </v-col>
                 <v-col cols="12" sm="6">
                     <p class="font-weight-black">Date: </p>
@@ -22,7 +22,7 @@
                 </v-col>
                 <v-col cols="12" sm="6">
                     <p class="font-weight-black">Service: </p>
-                    <p class="font-weight-regular">{{appointment.serviceId}}</p>
+                    <p class="font-weight-regular">{{selectedServiceName}}</p>
                 </v-col>
                 <v-col cols="12" sm="6">
                     <p class="font-weight-black">Time: </p>
@@ -39,6 +39,10 @@
 
     export default {
         name: "ReviewInformation",
+        props: [
+            'selectedBarberName',
+            'selectedServiceName',
+        ],
         computed: {
             ...mapGetters(["appointment"])
         },

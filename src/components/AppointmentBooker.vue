@@ -1,65 +1,65 @@
 <template>
-        <v-stepper v-model="e6" vertical>
-            <v-stepper-step :complete="e6 > 1" step="1">Select a professional
-                <small v-if="e6 > 1"> {{appointment.barberId}} </small>
+        <v-stepper v-model="step" vertical>
+            <v-stepper-step :complete="step > 1" step="1">Select a professional
+                <small v-if="step > 1"> {{ this.selectedBarberName }} </small>
             </v-stepper-step>
 
             <v-stepper-content step="1">
-                <BarberSelector />
-                <v-btn color="primary" @click="e6 = 2" :disabled="!appointment.barberId">Continue</v-btn>
+                <BarberSelectorForm @selected-barber="onChildSelectedBarber"/>
+                <v-btn color="primary" @click="step = 2" :disabled="!selectedBarberId">Continue</v-btn>
             </v-stepper-content>
 
-            <v-stepper-step :complete="e6 > 2" step="2">Select a service
-                <small v-if="e6 > 2"> {{appointment.serviceId}} </small>
+            <v-stepper-step :complete="step > 2" step="2">Select a service
+                <small v-if="step > 2"> {{ this.selectedServiceName }} </small>
             </v-stepper-step>
 
             <v-stepper-content step="2">
-                <ServiceSelector />
-                <v-btn color="primary" @click="e6 = 3">Continue</v-btn>
-                <v-btn text @click="e6 = 1">Back</v-btn>
+                <ServiceSelectorForm @selected-service="onChildSelectedService"/>
+                <v-btn color="primary" @click="step = 3" :disabled="!selectedServiceId">Continue</v-btn>
+                <v-btn text @click="step = 1">Back</v-btn>
             </v-stepper-content>
 
-            <v-stepper-step :complete="e6 > 3" step="3">Select a timeslot
-                <small v-if="e6 > 3">{{appointment.date + " @ " + appointment.time}}</small>
+            <v-stepper-step :complete="step > 3" step="3">Select a timeslot
+                <small v-if="step > 3">{{ appointment.date + " @ " + appointment.time }}</small>
             </v-stepper-step>
 
             <v-stepper-content step="3">
-                <DatetimeSelector />
-                <v-btn color="primary" @click="e6 = 4" :disabled="(!appointment.date && !appointment.time)">Continue</v-btn>
-                <v-btn text @click="e6 = 2">Back</v-btn>
+                <DatetimeSelectorForm @selected-date="onChildSelectedDate" @selected-time="onChildSelectedTime"/>
+                <v-btn color="primary" @click="step = 4" :disabled="!(this.selectedDate !== null && this.selectedTime !== null)">Continue</v-btn> <!-- TODO Refactor, why does disabled boolean evaluates this way? -->
+                <v-btn text @click="step = 2">Back</v-btn>
             </v-stepper-content>
 
-            <v-stepper-step :complete="e6 > 4" step="4">Enter details
-                <small v-if="e6 > 4">{{appointment.name + " - " + appointment.email}}</small>
+            <v-stepper-step :complete="step > 4" step="4">Enter details
+                <small v-if="step > 4">{{appointment.name + " - " + appointment.email}}</small>
             </v-stepper-step>
 
             <v-stepper-content step="4">
-                <ClientDetailsForm />
-                <v-btn color="primary" @click="e6 = 5">Continue</v-btn>
-                <v-btn text @click="e6 = 3">Back</v-btn>
+                <ClientDetailsForm  @selected-name="onChildSelectedName" @selected-email="onChildSelectedEmail"/>
+                <v-btn color="primary" @click="step = 5" :disabled="!(this.selectedName !== null && this.selectedEmail !== null)">Continue</v-btn> <!-- TODO Refactor, why does disabled boolean evaluates this way? -->
+                <v-btn text @click="step = 3">Back</v-btn>
             </v-stepper-content>
 
             <v-stepper-step step="5">Review</v-stepper-step>
 
             <v-stepper-content step="5">
-                <ReviewInformation />
+                <ReviewInformationForm v-bind:selectedBarberName="this.selectedBarberName" v-bind:selectedServiceName="this.selectedServiceName" />
                 <v-btn
                         color="success"
                         @click="book(appointment)"
                 >
                     Book
                 </v-btn>
-                <v-btn text @click="e6 = 4">Back</v-btn>
+                <v-btn text @click="step = 4">Back</v-btn>
             </v-stepper-content>
         </v-stepper>
 </template>
 
 <script>
-    import BarberSelector from "@/components/BarberSelector";
-    import ServiceSelector from "@/components/ServiceSelector";
-    import DatetimeSelector from "@/components/DatetimeSelector";
+    import BarberSelectorForm from "@/components/BarberSelectorForm";
+    import ServiceSelectorForm from "@/components/ServiceSelectorForm";
+    import DatetimeSelectorForm from "@/components/DatetimeSelectorForm";
     import ClientDetailsForm from "@/components/ClientDetailsForm"
-    import ReviewInformation from "@/components/ReviewInformation"
+    import ReviewInformationForm from "@/components/ReviewInformationForm"
     import {mapGetters} from "vuex";
     import {APPOINTMENT_SCHEDULE} from "../store/actions.type";
 
@@ -69,18 +69,48 @@
             ...mapGetters(["appointment"])
         },
         components: {
-            BarberSelector,
-            ServiceSelector,
-            DatetimeSelector,
+            BarberSelectorForm,
+            ServiceSelectorForm,
+            DatetimeSelectorForm,
             ClientDetailsForm,
-            ReviewInformation,
+            ReviewInformationForm,
         },
         data() {
             return {
-                e6: 1,
+                step: 1,
+                //TODO Clean refactor DRY
+                selectedBarberId: null,
+                selectedBarberName: null,
+                selectedServiceId: null,
+                selectedServiceName: null,
+                selectedDate: null,
+                selectedTime: null,
+                selectedName: null,
+                selectedEmail: null,
             }
         },
         methods: {
+            //TODO Clean refactor DRY
+            onChildSelectedBarber(barberId, barberName) {
+                this.selectedBarberId = barberId;
+                this.selectedBarberName = barberName;
+            },
+            onChildSelectedService(serviceId, serviceName) {
+                this.selectedServiceId = serviceId;
+                this.selectedServiceName = serviceName;
+            },
+            onChildSelectedDate(date) {
+                this.selectedDate = date;
+            },
+            onChildSelectedTime(time) {
+                this.selectedTime = time;
+            },
+            onChildSelectedName(name){
+                this.selectedName = name;
+            },
+            onChildSelectedEmail(email) {
+                this.selectedEmail = email;
+            },
             book(appointment) {
                 this.$store
                     .dispatch(APPOINTMENT_SCHEDULE, { appointment })
