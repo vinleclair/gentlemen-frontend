@@ -1,7 +1,7 @@
 <template>
     <v-footer
             class="justify-center"
-            color="secondary"
+            color="primary"
             height="50"
     >
         <div class="title font-weight-light grey--text text--lighten-1 text-center">

@@ -1,5 +1,4 @@
 <template>
-    <v-container>
         <v-form
                 ref="clientDetailsForm"
                 v-model="valid"
@@ -9,16 +8,19 @@
                     :value="name"
                     :rules="nameRules"
                     label="Name"
+                    style="width: 25%;"
+
             ></v-text-field>
 
             <v-text-field
+                    justify="center"
+                    style="width: 25%;"
                     @input="onEmailChange"
                     :value="email"
                     :rules="emailRules"
-                    label="E-mail"
+                    label="E-mail"s
             ></v-text-field>
         </v-form>
-    </v-container>
 </template>
 
 <script>

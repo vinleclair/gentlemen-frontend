@@ -94,7 +94,7 @@
 
         <v-sheet
                 id="contact"
-                color="#333333"
+                color="secondary"
                 dark
                 tag="section"
                 tile
@@ -122,7 +122,7 @@
                             <p class="font-weight-black">D9A 2K3 (Qc)</p>
                             <p class="font-weight-black">(123) 456-7890</p>
                         </v-col>
-                        
+
                         <v-col align="center">
                             <p class="font-weight-black">Monday: 10 - 18</p>
                             <p class="font-weight-black">Tuesday: 10 - 18</p>
