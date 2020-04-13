@@ -13,8 +13,8 @@ Vue.config.productionTip = false
 ApiService.init();
 
 new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App)
+    router,
+    store,
+    vuetify,
+    render: h => h(App)
 }).$mount('#app')

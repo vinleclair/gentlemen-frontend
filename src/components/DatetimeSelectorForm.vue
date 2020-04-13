@@ -65,11 +65,11 @@
         methods: {
             //TODO Setup allowed dates and times
             allowedDates: val => parseInt(val.split('-')[2], 10) % 2 === 0,
-            onUpdateDate (date) {
+            onUpdateDate(date) {
                 this.$store.dispatch(APPOINTMENT_UPDATE_DATE, date);
                 this.$emit('selected-date', date)
             },
-            onUpdateTime (time) {
+            onUpdateTime(time) {
                 this.$store.dispatch(APPOINTMENT_UPDATE_TIME, time);
                 this.$emit('selected-time', time)
             },

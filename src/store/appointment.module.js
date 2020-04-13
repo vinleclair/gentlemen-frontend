@@ -38,10 +38,10 @@ const initialState = {
     }
 }
 
-export const state = { ...initialState };
+export const state = {...initialState};
 
 export const actions = {
-    [APPOINTMENT_SCHEDULE]({ state }) {
+    [APPOINTMENT_SCHEDULE]({state}) {
         return AppointmentsService.create(state.appointment);
     },
     [APPOINTMENT_SELECT_BARBER](context, barberId) {
@@ -68,7 +68,7 @@ export const actions = {
     [APPOINTMENT_UPDATE_EMAIL](context, email) {
         context.commit(SET_EMAIL, email);
     },
-    [APPOINTMENT_RESET_STATE]({ commit }) {
+    [APPOINTMENT_RESET_STATE]({commit}) {
         commit(RESET_STATE);
     }
 };
@@ -114,7 +114,7 @@ export const getters = {
     }
 };
 
-export default{
+export default {
     state,
     actions,
     mutations,

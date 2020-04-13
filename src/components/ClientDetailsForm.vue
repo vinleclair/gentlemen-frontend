@@ -1,30 +1,30 @@
 <template>
-        <v-form
-                ref="clientDetailsForm"
-                v-model="valid"
-        >
-            <v-text-field
-                    @input="onNameChange"
-                    :value="name"
-                    :rules="nameRules"
-                    label="Name"
-                    style="width: 25%;"
+    <v-form
+            ref="clientDetailsForm"
+            v-model="valid"
+    >
+        <v-text-field
+                @input="onNameChange"
+                :value="name"
+                :rules="nameRules"
+                label="Name"
+                style="width: 25%;"
 
-            ></v-text-field>
+        ></v-text-field>
 
-            <v-text-field
-                    justify="center"
-                    style="width: 25%;"
-                    @input="onEmailChange"
-                    :value="email"
-                    :rules="emailRules"
-                    label="E-mail"s
-            ></v-text-field>
-        </v-form>
+        <v-text-field
+                justify="center"
+                style="width: 25%;"
+                @input="onEmailChange"
+                :value="email"
+                :rules="emailRules"
+                label="E-mail" s
+        ></v-text-field>
+    </v-form>
 </template>
 
 <script>
-    import { mapGetters } from "vuex";
+    import {mapGetters} from "vuex";
     import {
         APPOINTMENT_UPDATE_NAME,
         APPOINTMENT_UPDATE_EMAIL,
@@ -63,7 +63,7 @@
                 this.$emit('selected-name', name);
 
             },
-            onEmailChange (email) {
+            onEmailChange(email) {
                 if (this.valid) {
                     this.$store.dispatch(APPOINTMENT_UPDATE_EMAIL, email);
                     this.$emit('selected-email', email);

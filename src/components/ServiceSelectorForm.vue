@@ -23,39 +23,39 @@
 </template>
 
 <script>
-import {
-    APPOINTMENT_SELECT_SERVICE,
-    APPOINTMENT_UNSET_SERVICE
-} from "@/store/actions.type";
+    import {
+        APPOINTMENT_SELECT_SERVICE,
+        APPOINTMENT_UNSET_SERVICE
+    } from "@/store/actions.type";
 
-export default {
-    data: () => ({
-        selectedServiceId: null,
-        services: [
-            {
-                id: 1,
-                name: 'Haircut',
-                details: '26$ - 30 mins'
-            },
-            {
-                id: 2,
-                name: 'Shave',
-                details: '26$ - 30 mins'
+    export default {
+        data: () => ({
+            selectedServiceId: null,
+            services: [
+                {
+                    id: 1,
+                    name: 'Haircut',
+                    details: '26$ - 30 mins'
+                },
+                {
+                    id: 2,
+                    name: 'Shave',
+                    details: '26$ - 30 mins'
 
-            },
-        ],
-    }),
-    methods: {
-        onSelectService(serviceId, serviceName) {
-            if (this.selectedServiceId !== serviceId) {
-                this.selectedServiceId = serviceId
-                this.$store.dispatch(APPOINTMENT_SELECT_SERVICE, serviceId);
-            } else {
-                this.selectedServiceId = null
-                this.$store.dispatch(APPOINTMENT_UNSET_SERVICE);
+                },
+            ],
+        }),
+        methods: {
+            onSelectService(serviceId, serviceName) {
+                if (this.selectedServiceId !== serviceId) {
+                    this.selectedServiceId = serviceId
+                    this.$store.dispatch(APPOINTMENT_SELECT_SERVICE, serviceId);
+                } else {
+                    this.selectedServiceId = null
+                    this.$store.dispatch(APPOINTMENT_UNSET_SERVICE);
+                }
+                this.$emit('selected-service', this.selectedServiceId, serviceName)
             }
-            this.$emit('selected-service', this.selectedServiceId, serviceName)
         }
     }
-}
 </script>
