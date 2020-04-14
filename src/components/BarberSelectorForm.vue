@@ -15,15 +15,13 @@
                     >
                         <!-- TODO Turn into a single component -->
                         <v-img
-                                v-if="selectedBarberId === barber.id"
-                                :src="barber.img"
+                                v-if="selectedBarberId === barber.barberId"
                                 class="d-flex align-center "
                                 max-height="100%"
                         />
                         <v-img
                                 v-else
                                 gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
-                                :src="barber.img"
                                 class="d-flex align-center "
                                 max-height="100%"
                         />
@@ -38,31 +36,16 @@
 <script>
     import {
         APPOINTMENT_SELECT_BARBER,
-        APPOINTMENT_UNSET_BARBER
+        APPOINTMENT_UNSET_BARBER,
+        FETCH_BARBERS
     } from "@/store/actions.type";
+    import {mapGetters} from "vuex";
 
     export default {
         name: "BarberSelectorForm",
         data() {
             return {
                 selectedBarberId: null,
-                barbers: [
-                    {
-                        id: 1,
-                        name: 'James',
-                        img: 'https://semantic-ui.com/images/avatar2/large/matthew.png',
-                    },
-                    {
-                        id: 2,
-                        name: 'Fatima',
-                        img: 'https://semantic-ui.com/images/avatar2/large/molly.png',
-                    },
-                    {
-                        id: 3,
-                        name: 'Xin',
-                        img: 'https://semantic-ui.com/images/avatar2/large/elyse.png',
-                    },
-                ]
             };
         },
         methods: {
@@ -76,6 +59,12 @@
                 }
                 this.$emit('selected-barber', this.selectedBarberId, barberName)
             }
+        },
+        mounted() {
+            this.$store.dispatch(FETCH_BARBERS);
+        },
+        computed: {
+            ...mapGetters(["barbers"]),
         }
     }
 </script>
