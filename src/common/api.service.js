@@ -47,9 +47,3 @@ export const AppointmentsService = {
         return ApiService.post("appointments", {appointment: params});
     },
 };
-
-export const BarbersService = {
-    get() {
-        return ApiService.get("barbers");
-    }
-};

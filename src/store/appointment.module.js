@@ -1,6 +1,5 @@
 import Vue from "vue";
 import {
-    BarbersService,
     AppointmentsService
 } from "@/common/api.service";
 import {
@@ -13,7 +12,7 @@ import {
     APPOINTMENT_UNSET_SERVICE,
     APPOINTMENT_UPDATE_DATE,
     APPOINTMENT_UPDATE_TIME,
-    APPOINTMENT_RESET_STATE, FETCH_BARBERS,
+    APPOINTMENT_RESET_STATE,
 } from "./actions.type";
 import {
     SET_APPOINTMENT,
@@ -25,7 +24,7 @@ import {
     SET_TIME,
     SET_CLIENT_NAME,
     SET_CLIENT_EMAIL,
-    RESET_STATE, SET_BARBERS,
+    RESET_STATE,
 } from "./mutations.type";
 
 const initialState = {
@@ -36,24 +35,12 @@ const initialState = {
         date: "",
         time: "",
         serviceId: ""
-    },
-    barbers: [],
-    services: [],
+    }
 }
 
 export const state = {...initialState};
 
 export const actions = {
-    async [FETCH_BARBERS]({commit}) {
-        return BarbersService.get()
-            .then(({data}) => {
-                commit(SET_BARBERS, data.barbers);
-            })
-            .catch(error => {
-                throw new Error(error);
-            });
-    },
-
     [APPOINTMENT_SCHEDULE]({state}) {
         return AppointmentsService.create(state.appointment);
     },
@@ -118,18 +105,12 @@ export const mutations = {
         for (let f in state) {
             Vue.set(state, f, initialState[f]);
         }
-    },
-    [SET_BARBERS](state, barbers) {
-        state.barbers = barbers;
     }
 };
 
 export const getters = {
     appointment(state) {
         return state.appointment;
-    },
-    barbers(state) {
-        return state.barbers;
     }
 };
 

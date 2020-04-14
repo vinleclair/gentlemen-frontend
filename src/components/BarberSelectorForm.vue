@@ -16,19 +16,19 @@
                         <!-- TODO Turn into a single component -->
                         <v-img
                                 v-if="selectedBarberId === barber.id"
-                                :src="barber.portaitPath"
-                                class="d-flex fit_screen "
+                                :src="barber.img"
+                                class="d-flex align-center "
                                 max-height="100%"
                         />
                         <v-img
                                 v-else
                                 gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
-                                :src="barber.portraitPath"
+                                :src="barber.img"
                                 class="d-flex align-center "
                                 max-height="100%"
                         />
                     </v-card>
-                    <p class="font-weight-black headline">{{barber.portraitPath}}</p>
+                    <p class="font-weight-black headline">{{barber.name}}</p>
                 </v-col>
             </v-row>
         </v-container>
@@ -38,16 +38,31 @@
 <script>
     import {
         APPOINTMENT_SELECT_BARBER,
-        APPOINTMENT_UNSET_BARBER,
-        FETCH_BARBERS
+        APPOINTMENT_UNSET_BARBER
     } from "@/store/actions.type";
-    import {mapGetters} from "vuex";
 
     export default {
         name: "BarberSelectorForm",
         data() {
             return {
                 selectedBarberId: null,
+                barbers: [
+                    {
+                        id: 1,
+                        name: 'James',
+                        img: 'https://semantic-ui.com/images/avatar2/large/matthew.png',
+                    },
+                    {
+                        id: 2,
+                        name: 'Fatima',
+                        img: 'https://semantic-ui.com/images/avatar2/large/molly.png',
+                    },
+                    {
+                        id: 3,
+                        name: 'Xin',
+                        img: 'https://semantic-ui.com/images/avatar2/large/elyse.png',
+                    },
+                ]
             };
         },
         methods: {
@@ -61,15 +76,6 @@
                 }
                 this.$emit('selected-barber', this.selectedBarberId, barberName)
             }
-        },
-        created() {
-            this.$store.dispatch(FETCH_BARBERS);
-        },
-        computed: {
-            ...mapGetters(["barbers"]),
-            barber() {
-                return this.$route.params.tag;
-            }
-        },
+        }
     }
 </script>
