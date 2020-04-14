@@ -1,3 +1,6 @@
+export const SET_BARBERS = "setBarbers";
+
+// APPOINTMENT
 export const SET_APPOINTMENT = "setAppointment";
 export const SET_BARBER = "setBarber";
 export const UNSET_BARBER = "unsetBarber";

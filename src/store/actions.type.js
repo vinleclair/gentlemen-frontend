@@ -8,3 +8,4 @@ export const APPOINTMENT_UPDATE_TIME = "updateAppointmentTime";
 export const APPOINTMENT_UPDATE_CLIENT_NAME = "updateAppointmentClientName";
 export const APPOINTMENT_UPDATE_CLIENT_EMAIL = "updateAppointmentClientEmail";
 export const APPOINTMENT_RESET_STATE = "resetAppointmentState";
+export const FETCH_BARBERS = "fetchBarbers";

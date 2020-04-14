@@ -1,6 +1,7 @@
 import Vue from "vue";
 import {
-    AppointmentsService
+    AppointmentsService,
+    BarbersService
 } from "@/common/api.service";
 import {
     APPOINTMENT_SCHEDULE,
@@ -13,6 +14,7 @@ import {
     APPOINTMENT_UPDATE_DATE,
     APPOINTMENT_UPDATE_TIME,
     APPOINTMENT_RESET_STATE,
+    FETCH_BARBERS,
 } from "./actions.type";
 import {
     SET_APPOINTMENT,
@@ -25,9 +27,10 @@ import {
     SET_CLIENT_NAME,
     SET_CLIENT_EMAIL,
     RESET_STATE,
+    SET_BARBERS,
 } from "./mutations.type";
 
-const initialState = {
+const appointmentInitialState = {
     appointment: {
         clientName: "",
         clientEmail: "",
@@ -35,10 +38,10 @@ const initialState = {
         date: "",
         time: "",
         serviceId: ""
-    }
+    },
 }
 
-export const state = {...initialState};
+export const state = Object.assign({}, {...appointmentInitialState}, { barbers: [] });
 
 export const actions = {
     [APPOINTMENT_SCHEDULE]({state}) {
@@ -70,6 +73,15 @@ export const actions = {
     },
     [APPOINTMENT_RESET_STATE]({commit}) {
         commit(RESET_STATE);
+    },
+    async [FETCH_BARBERS]({ commit }) {
+        return BarbersService.get()
+            .then(({ data }) => {
+                commit(SET_BARBERS, data.barbers);
+            })
+            .catch(error => {
+                throw new Error(error);
+            });
     }
 };
 
@@ -105,12 +117,18 @@ export const mutations = {
         for (let f in state) {
             Vue.set(state, f, initialState[f]);
         }
+    },
+    [SET_BARBERS](state, barbers) {
+        state.barbers = barbers;
     }
 };
 
 export const getters = {
     appointment(state) {
         return state.appointment;
+    },
+    barbers(state) {
+        return state.barbers;
     }
 };
 
