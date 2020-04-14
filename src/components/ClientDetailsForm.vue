@@ -4,7 +4,7 @@
             v-model="valid"
     >
         <v-text-field
-                @input="onClientNameChange"
+                @blur="onClientNameChange"
                 :value="clientName"
                 :rules="clientNameRules"
                 label="Name"
@@ -15,7 +15,7 @@
         <v-text-field
                 justify="center"
                 style="width: 25%;"
-                @input="onClientEmailChange"
+                @blur="onClientEmailChange"
                 :value="clientEmail"
                 :rules="clientEmailRules"
                 label="Email"
