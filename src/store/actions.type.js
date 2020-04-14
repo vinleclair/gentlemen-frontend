@@ -1,3 +1,4 @@
+// APPOINTMENT
 export const APPOINTMENT_SCHEDULE = "scheduleAppointment";
 export const APPOINTMENT_SELECT_BARBER = "selectAppointmentBarber";
 export const APPOINTMENT_UNSET_BARBER = "unsetAppointmentBarber";
@@ -8,3 +9,8 @@ export const APPOINTMENT_UPDATE_TIME = "updateAppointmentTime";
 export const APPOINTMENT_UPDATE_CLIENT_NAME = "updateAppointmentClientName";
 export const APPOINTMENT_UPDATE_CLIENT_EMAIL = "updateAppointmentClientEmail";
 export const APPOINTMENT_RESET_STATE = "resetAppointmentState";
+
+// HOME
+export const FETCH_BARBERS = "fetchBarbers";
+
+
