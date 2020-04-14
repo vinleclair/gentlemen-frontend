@@ -5,7 +5,7 @@
     >
         <v-text-field
                 @blur="onClientNameChange"
-                :value="clientName"
+                v-model="clientName"
                 :rules="clientNameRules"
                 label="Name"
                 style="width: 25%;"
@@ -16,7 +16,7 @@
                 justify="center"
                 style="width: 25%;"
                 @blur="onClientEmailChange"
-                :value="clientEmail"
+                v-model="clientEmail"
                 :rules="clientEmailRules"
                 label="Email"
         ></v-text-field>
@@ -60,10 +60,10 @@
             },
         },
         methods: {
-            onClientNameChange(name) {
-                this.$store.dispatch(APPOINTMENT_UPDATE_CLIENT_NAME, name);},
+            onClientNameChange() {
+                this.$store.dispatch(APPOINTMENT_UPDATE_CLIENT_NAME, this.clientName);},
             onClientEmailChange(email) {
-                this.$store.dispatch(APPOINTMENT_UPDATE_CLIENT_EMAIL, email);
+                this.$store.dispatch(APPOINTMENT_UPDATE_CLIENT_EMAIL, this.clientEmail);
             }
         }
     };
