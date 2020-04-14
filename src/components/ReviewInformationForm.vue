@@ -39,10 +39,16 @@
 
     export default {
         name: "ReviewInformation",
-        props: [
-            'selectedBarberName',
-            'selectedServiceName',
-        ],
+        props: {
+            selectedBarberName: {
+                type: String,
+                required: true
+            },
+            SelectedServiceName: {
+                type: String,
+                required: true
+            }
+        },
         computed: {
             ...mapGetters(["appointment"])
         },
