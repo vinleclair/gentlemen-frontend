@@ -11,10 +11,10 @@
                 >
 
                     <v-list-item-content
-                            @click="onSelectService(service.id, service.name)"
+                            @click="onSelectService(service.serviceId, service.name)"
                     >
-                        <v-list-item-title align="center" v-text="service.name"></v-list-item-title>
-                        <v-list-item-subtitle align="center" v-text="service.details"></v-list-item-subtitle>
+                        <v-list-item-title align="center">{{ service.name }}</v-list-item-title>
+                        <v-list-item-subtitle align="center">{{ service.price + "$  - " + service.duration + " mins"}}</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
             </v-list-item-group>
@@ -25,25 +25,14 @@
 <script>
     import {
         APPOINTMENT_SELECT_SERVICE,
-        APPOINTMENT_UNSET_SERVICE
+        APPOINTMENT_UNSET_SERVICE,
+        FETCH_SERVICES
     } from "@/store/actions.type";
+    import {mapGetters} from "vuex";
 
     export default {
         data: () => ({
             selectedServiceId: null,
-            services: [
-                {
-                    id: 1,
-                    name: 'Haircut',
-                    details: '26$ - 30 mins'
-                },
-                {
-                    id: 2,
-                    name: 'Shave',
-                    details: '26$ - 30 mins'
-
-                },
-            ],
         }),
         methods: {
             onSelectService(serviceId, serviceName) {
@@ -56,6 +45,12 @@
                 }
                 this.$emit('selected-service', this.selectedServiceId, serviceName)
             }
+        },
+        mounted() {
+            this.$store.dispatch(FETCH_SERVICES);
+        },
+        computed: {
+            ...mapGetters(["services"]),
         }
     }
 </script>

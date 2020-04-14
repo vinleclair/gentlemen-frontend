@@ -1,4 +1,5 @@
 export const SET_BARBERS = "setBarbers";
+export const SET_SERVICES = "setServices";
 
 // APPOINTMENT
 export const SET_APPOINTMENT = "setAppointment";
@@ -10,4 +11,3 @@ export const SET_DATE = "setDate";
 export const SET_TIME = "setTime";
 export const SET_CLIENT_NAME = "setClientName";
 export const SET_CLIENT_EMAIL = "setClientEmail";
-export const RESET_STATE = "resetModuleState";

@@ -1,7 +1,8 @@
 import Vue from "vue";
 import {
     AppointmentsService,
-    BarbersService
+    BarbersService,
+    ServicesService
 } from "@/common/api.service";
 import {
     APPOINTMENT_SCHEDULE,
@@ -13,8 +14,8 @@ import {
     APPOINTMENT_UNSET_SERVICE,
     APPOINTMENT_UPDATE_DATE,
     APPOINTMENT_UPDATE_TIME,
-    APPOINTMENT_RESET_STATE,
     FETCH_BARBERS,
+    FETCH_SERVICES
 } from "./actions.type";
 import {
     SET_APPOINTMENT,
@@ -26,8 +27,8 @@ import {
     SET_TIME,
     SET_CLIENT_NAME,
     SET_CLIENT_EMAIL,
-    RESET_STATE,
     SET_BARBERS,
+    SET_SERVICES
 } from "./mutations.type";
 
 const appointmentInitialState = {
@@ -41,7 +42,7 @@ const appointmentInitialState = {
     },
 }
 
-export const state = Object.assign({}, {...appointmentInitialState}, { barbers: [] });
+export const state = Object.assign({}, {...appointmentInitialState}, { barbers: [], services: [] });
 
 export const actions = {
     [APPOINTMENT_SCHEDULE]({state}) {
@@ -71,13 +72,19 @@ export const actions = {
     [APPOINTMENT_UPDATE_CLIENT_EMAIL](context, email) {
         context.commit(SET_CLIENT_EMAIL, email);
     },
-    [APPOINTMENT_RESET_STATE]({commit}) {
-        commit(RESET_STATE);
-    },
     async [FETCH_BARBERS]({ commit }) {
         return BarbersService.get()
             .then(({ data }) => {
                 commit(SET_BARBERS, data.barbers);
+            })
+            .catch(error => {
+                throw new Error(error);
+            });
+    },
+    async [FETCH_SERVICES]({ commit }) {
+        return ServicesService.get()
+            .then(({ data }) => {
+                commit(SET_SERVICES, data.services);
             })
             .catch(error => {
                 throw new Error(error);
@@ -113,13 +120,11 @@ export const mutations = {
     [SET_CLIENT_EMAIL](state, email) {
         state.appointment.clientEmail = email;
     },
-    [RESET_STATE]() {
-        for (let f in state) {
-            Vue.set(state, f, initialState[f]);
-        }
-    },
     [SET_BARBERS](state, barbers) {
         state.barbers = barbers;
+    },
+    [SET_SERVICES](state, services) {
+        state.services = services;
     }
 };
 
@@ -129,6 +134,9 @@ export const getters = {
     },
     barbers(state) {
         return state.barbers;
+    },
+    services(state) {
+        return state.services;
     }
 };
 

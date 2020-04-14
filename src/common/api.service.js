@@ -53,3 +53,9 @@ export const BarbersService = {
         return ApiService.get("barbers");
     }
 };
+
+export const ServicesService = {
+    get() {
+        return ApiService.get("services");
+    }
+};
