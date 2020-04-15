@@ -133,10 +133,10 @@
                     <v-col align="center">
                         <p class="font-weight-black">Monday: 10 - 18</p>
                         <p class="font-weight-black">Tuesday: 10 - 18</p>
-                        <p class="font-weight-black">Wednesday: 10 - 20</p>
-                        <p class="font-weight-black">Thursday: 10 - 20</p>
-                        <p class="font-weight-black">Friday: 10 - 20</p>
-                        <p class="font-weight-black">Saturday: 10 - 16</p>
+                        <p class="font-weight-black">Wednesday: 10 - 18</p>
+                        <p class="font-weight-black">Thursday: 10 - 18</p>
+                        <p class="font-weight-black">Friday: 10 - 18</p>
+                        <p class="font-weight-black">Saturday: 10 - 18</p>
                         <p class="font-weight-black">Sunday: CLOSED</p>
                     </v-col>
 

@@ -41,12 +41,10 @@
         name: "ReviewInformation",
         props: {
             selectedBarberName: {
-                type: String,
-                required: true
+                type: String
             },
-            SelectedServiceName: {
-                type: String,
-                required: true
+            selectedServiceName: {
+                type: String
             }
         },
         computed: {

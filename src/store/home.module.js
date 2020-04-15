@@ -15,6 +15,7 @@ import {
     APPOINTMENT_UPDATE_DATE,
     APPOINTMENT_UPDATE_TIME,
     FETCH_BARBERS,
+    FETCH_UPCOMING_APPOINTMENTS,
     FETCH_SERVICES
 } from "./actions.type";
 import {
@@ -28,7 +29,8 @@ import {
     SET_CLIENT_NAME,
     SET_CLIENT_EMAIL,
     SET_BARBERS,
-    SET_SERVICES
+    SET_SERVICES,
+    SET_UPCOMING_APPOINTMENTS
 } from "./mutations.type";
 
 const appointmentInitialState = {
@@ -42,7 +44,11 @@ const appointmentInitialState = {
     },
 }
 
-export const state = Object.assign({}, {...appointmentInitialState}, { barbers: [], services: [] });
+export const state = Object.assign({}, {...appointmentInitialState}, {
+    barbers: [],
+    services: [],
+    upcomingAppointments: []
+});
 
 export const actions = {
     [APPOINTMENT_SCHEDULE]({state}) {
@@ -89,7 +95,12 @@ export const actions = {
             .catch(error => {
                 throw new Error(error);
             });
-    }
+    },
+    async [FETCH_UPCOMING_APPOINTMENTS](context, barberId) {
+        const { data } = await AppointmentsService.getUpcomingAppointments(barberId);
+        context.commit(SET_UPCOMING_APPOINTMENTS, data.upcomingAppointments);
+        return data.upcomingAppointments;
+    },
 };
 
 export const mutations = {
@@ -125,7 +136,11 @@ export const mutations = {
     },
     [SET_SERVICES](state, services) {
         state.services = services;
+    },
+    [SET_UPCOMING_APPOINTMENTS](state, upcomingAppointments) {
+        state.upcomingAppointments = upcomingAppointments;
     }
+
 };
 
 export const getters = {
@@ -137,6 +152,9 @@ export const getters = {
     },
     services(state) {
         return state.services;
+    },
+    upcomingAppointments(state) {
+        return state.upcomingAppointments;
     }
 };
 

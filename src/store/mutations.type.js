@@ -1,5 +1,6 @@
 export const SET_BARBERS = "setBarbers";
 export const SET_SERVICES = "setServices";
+export const SET_UPCOMING_APPOINTMENTS = "setUpcomingAppointments";
 
 // APPOINTMENT
 export const SET_APPOINTMENT = "setAppointment";

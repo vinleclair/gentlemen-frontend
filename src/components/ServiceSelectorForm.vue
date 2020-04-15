@@ -3,8 +3,8 @@
             class="mx-auto"
             max-width="400"
     >
-        <v-list>
-            <v-list-item-group color="secondary">
+        <v-list rounded>
+            <v-list-item-group color="primary">
                 <v-list-item
                         :key="i"
                         v-for="(service, i) in services"

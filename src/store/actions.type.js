@@ -1,4 +1,5 @@
 export const FETCH_BARBERS = "fetchBarbers";
+export const FETCH_UPCOMING_APPOINTMENTS = "fetchUpcomingAppointments";
 export const FETCH_SERVICES = "fetchServices";
 
 // APPOINTMENT

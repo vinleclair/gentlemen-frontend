@@ -1,7 +1,7 @@
 <template>
     <v-container>
         <v-stepper v-model="step" vertical>
-            <v-stepper-step :complete="step > 1" step="1">Select a professional
+            <v-stepper-step :complete="step > 1" step="1">Select professional
                 <small v-if="step > 1"> {{ this.selectedBarberName }} </small>
             </v-stepper-step>
 
@@ -10,7 +10,7 @@
                 <v-btn color="primary" @click="step = 2" :disabled="!selectedBarberId">Continue</v-btn>
             </v-stepper-content>
 
-            <v-stepper-step :complete="step > 2" step="2">Select a service
+            <v-stepper-step :complete="step > 2" step="2">Select service
                 <small v-if="step > 2"> {{ this.selectedServiceName }} </small>
             </v-stepper-step>
 
@@ -20,12 +20,12 @@
                 <v-btn text @click="step = 1">Back</v-btn>
             </v-stepper-content>
 
-            <v-stepper-step :complete="step > 3" step="3">Select a timeslot
+            <v-stepper-step :complete="step > 3" step="3">Select available timeslot
                 <small v-if="step > 3">{{ appointment.date + " @ " + appointment.time }}</small>
             </v-stepper-step>
 
             <v-stepper-content step="3">
-                <DatetimeSelectorForm @selected-date="onChildSelectedDate" @selected-time="onChildSelectedTime"/>
+                <DatetimeSelectorForm :selectedBarberId="selectedBarberId" @selected-date="onChildSelectedDate" @selected-time="onChildSelectedTime"/>
                 <v-btn color="primary" @click="step = 4"
                        :disabled="!(this.selectedDate !== null && this.selectedTime !== null)">Continue
                 </v-btn> <!-- TODO Refactor, why does disabled boolean evaluates this way? -->

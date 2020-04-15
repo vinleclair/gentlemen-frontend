@@ -1,21 +1,20 @@
 <template>
     <v-item-group>
         <v-container>
-            <v-row>
+            <v-row justify="center">
                 <v-col
                         :key="`barber-${index}`"
-                        cols="12"
                         md="4"
+                        align="center"
                         v-for="(barber, index) in barbers"
                 >
-
                     <v-card
                             @click="onSelectBarber(barber.barberId, barber.name)"
                             align="stretch"
                     >
                         <v-img
-                                :src="'/img/' + barber.imagePath"
                                 :gradient="selectedBarberId !== barber.barberId ? 'rgba(121,85,64,.75), rgba(161,136,117, .5)' : '' "
+                                :src="'/img/' + barber.imagePath"
                         />
                     </v-card>
                     <p class="font-weight-black headline">{{barber.name}}</p>

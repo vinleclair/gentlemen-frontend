@@ -46,6 +46,10 @@ export const AppointmentsService = {
     create(params) {
         return ApiService.post("appointments", {appointment: params});
     },
+
+    getUpcomingAppointments(barberId) {
+        return ApiService.get("appointments", `upcoming/${barberId}`);
+    },
 };
 
 export const BarbersService = {
