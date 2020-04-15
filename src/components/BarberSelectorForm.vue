@@ -1,5 +1,5 @@
 <template>
-    <v-item-group active-class="primary">
+    <v-item-group>
         <v-container>
             <v-row>
                 <v-col
@@ -10,20 +10,12 @@
                 >
 
                     <v-card
-                            @click="onSelectBarber(barber.id, barber.name)"
-                            height="300"
+                            @click="onSelectBarber(barber.barberId, barber.name)"
+                            align="stretch"
                     >
-                        <!-- TODO Turn into a single component -->
                         <v-img
-                                v-if="selectedBarberId === barber.barberId"
-                                class="d-flex align-center "
-                                max-height="100%"
-                        />
-                        <v-img
-                                v-else
-                                gradient="to top right, rgba(100,115,201,.33), rgba(25,32,72,.7)"
-                                class="d-flex align-center "
-                                max-height="100%"
+                                :src="'/img/' + barber.imagePath"
+                                :gradient="selectedBarberId !== barber.barberId ? 'rgba(121,85,64,.75), rgba(161,136,117, .5)' : '' "
                         />
                     </v-card>
                     <p class="font-weight-black headline">{{barber.name}}</p>
@@ -59,8 +51,9 @@
                 }
                 this.$emit('selected-barber', this.selectedBarberId, barberName)
             }
+
         },
-        mounted() {
+        beforeMount() {
             this.$store.dispatch(FETCH_BARBERS);
         },
         computed: {
