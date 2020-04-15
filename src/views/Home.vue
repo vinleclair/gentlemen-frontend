@@ -35,13 +35,13 @@
                     </span>
 
                                 </v-col>
-
                                 <v-btn
-                                        @click="$vuetify.goTo('#appointment-booker')"
-                                        class="align-self-end"
+                                        class="align-center"
+                                        fab
                                         outlined
+                                        @click="$vuetify.goTo('#about-us')"
                                 >
-                                    book appointment
+                                    <v-icon>mdi-chevron-double-down</v-icon>
                                 </v-btn>
                             </v-row>
                         </v-container>
@@ -100,7 +100,7 @@
         </section>
 
         <v-sheet
-                id="contact"
+                id="contact-us"
                 color="secondary"
                 dark
                 tag="section"
