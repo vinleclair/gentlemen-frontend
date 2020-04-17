@@ -4,9 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "postinstall": " npm run build"
   },
   "dependencies": {
     "axios": "^0.19.2",
