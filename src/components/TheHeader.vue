@@ -12,7 +12,7 @@
                     alt="Gentlemen Logo"
                     contain
                     max-height="70%"
-                    src="@/assets/images/logo.png"
+                    src="../assets/images/logo.png"
             ></v-img>
         </v-avatar>
 

@@ -37,8 +37,8 @@
             </v-stepper-step>
 
             <v-stepper-content step="4">
-                <ClientDetailsForm v-on:client-form-validity="clientFormIsValid = !clientFormIsValid"/>
-                <v-btn :disabled="!(clientFormIsValid)" @click="step = 5"
+                <ClientDetailsForm v-on:client-form-validity="clientDetailsFormIsValid = !clientDetailsFormIsValid"/>
+                <v-btn :disabled="!(clientDetailsFormIsValid)" @click="step = 5"
                        color="primary">Continue
                 </v-btn>
                 <v-btn @click="step = 3" text>Back</v-btn>
@@ -102,7 +102,7 @@
             return {
                 errors: {},
                 step: 1,
-                clientFormIsValid: false,
+                clientDetailsFormIsValid: false,
             }
         },
         methods: {
@@ -113,7 +113,6 @@
                         this.errors = response.data.errors;
                     });
                 this.step = 6;
-
             },
             reset() {
                 this.$store.dispatch(APPOINTMENT_RESET_STATE);

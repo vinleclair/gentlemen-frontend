@@ -36,11 +36,6 @@
 
     export default {
         name: "BarberSelectorForm",
-        data() {
-            return {
-                selectedBarberId: null,
-            };
-        },
         computed: {
             ...mapGetters(["fetchedBarbers", "appointment"]),
         },

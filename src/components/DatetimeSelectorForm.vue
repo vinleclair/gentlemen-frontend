@@ -47,7 +47,6 @@
         name: "DatetimeSelector",
         data() {
             return {
-                time: '',
                 currentDate: new Date().toISOString().slice(0, 10),
                 timeslots: [],
             };
