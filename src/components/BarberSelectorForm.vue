@@ -6,7 +6,7 @@
                         :key="`barber-${index}`"
                         md="4"
                         align="center"
-                        v-for="(barber, index) in barbers"
+                        v-for="(barber, index) in fetchedBarbers"
                 >
                     <v-card
                             @click="onSelectBarber(barber)"
@@ -57,7 +57,7 @@
             this.$store.dispatch(FETCH_BARBERS);
         },
         computed: {
-            ...mapGetters(["barbers", "appointment"]),
+            ...mapGetters(["fetchedBarbers", "appointment"]),
         }
     }
 </script>

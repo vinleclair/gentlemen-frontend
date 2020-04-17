@@ -1,5 +1,5 @@
-export const SET_BARBERS = "setBarbers";
-export const SET_SERVICES = "setServices";
+export const SET_FETCHED_BARBERS = "setFetchedBarbers";
+export const SET_FETCHED_SERVICES = "setFetchedServices";
 export const SET_UPCOMING_APPOINTMENTS = "setUpcomingAppointments";
 
 // APPOINTMENT

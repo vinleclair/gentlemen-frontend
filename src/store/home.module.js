@@ -30,9 +30,9 @@ import {
     UNSET_TIME,
     SET_CLIENT_NAME,
     SET_CLIENT_EMAIL,
-    SET_BARBERS,
-    SET_SERVICES,
-    SET_UPCOMING_APPOINTMENTS
+    SET_UPCOMING_APPOINTMENTS,
+    SET_FETCHED_BARBERS,
+    SET_FETCHED_SERVICES
 } from "./mutations.type";
 
 const appointmentInitialState = {
@@ -44,16 +44,16 @@ const appointmentInitialState = {
         date: "",
         time: "",
     },
-}
-
-export const state = Object.assign({}, {...appointmentInitialState}, {
-    barbers: [],
-    services: [],
-    upcomingAppointments: [],
     selections: {
         barberName: "",
         serviceName: "",
-    }
+    },
+    upcomingAppointments: [],
+}
+
+export const state = Object.assign({}, {...appointmentInitialState}, {
+    fetchedBarbers: [],
+    fetchedServices: [],
 });
 
 export const actions = {
@@ -89,12 +89,12 @@ export const actions = {
     },
     async [FETCH_BARBERS](context) {
         const { data } = await BarbersService.get();
-        context.commit(SET_BARBERS, data.barbers);
+        context.commit(SET_FETCHED_BARBERS, data.barbers);
         return data.barbers;
     },
     async [FETCH_SERVICES](context) {
         const { data } = await ServicesService.get();
-        context.commit(SET_SERVICES, data.services);
+        context.commit(SET_FETCHED_SERVICES, data.services);
         return data.services;
     },
     async [FETCH_UPCOMING_APPOINTMENTS](context, barberId) {
@@ -142,11 +142,11 @@ export const mutations = {
     [SET_CLIENT_EMAIL](state, email) {
         state.appointment.clientEmail = email;
     },
-    [SET_BARBERS](state, barbers) {
-        state.barbers = barbers;
+    [SET_FETCHED_BARBERS](state, fetchedBarbers) {
+        state.fetchedBarbers = fetchedBarbers;
     },
-    [SET_SERVICES](state, services) {
-        state.services = services;
+    [SET_FETCHED_SERVICES](state, fetchedServices) {
+        state.fetchedServices = fetchedServices;
     },
     [SET_UPCOMING_APPOINTMENTS](state, upcomingAppointments) {
         state.upcomingAppointments = upcomingAppointments;
@@ -158,11 +158,11 @@ export const getters = {
     appointment(state) {
         return state.appointment;
     },
-    barbers(state) {
-        return state.barbers;
+    fetchedBarbers(state) {
+        return state.fetchedBarbers;
     },
-    services(state) {
-        return state.services;
+    fetchedServices(state) {
+        return state.fetchedServices;
     },
     upcomingAppointments(state) {
         return state.upcomingAppointments;

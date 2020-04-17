@@ -7,7 +7,7 @@
             <v-list-item-group color="primary">
                 <v-list-item
                         :key="i"
-                        v-for="(service, i) in services"
+                        v-for="(service, i) in fetchedServices"
                 >
 
                     <v-list-item-content
@@ -49,7 +49,7 @@
             this.$store.dispatch(FETCH_SERVICES);
         },
         computed: {
-            ...mapGetters(["services"]),
+            ...mapGetters(["fetchedServices"]),
         }
     }
 </script>

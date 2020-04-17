@@ -59,6 +59,20 @@
                 </v-btn>
                 <v-btn text @click="step = 4">Back</v-btn>
             </v-stepper-content>
+            <v-fade-transition>
+            <v-row v-if="step === 6" justify="center">
+                <v-col align="center">
+                    <v-btn
+                            large
+                            color="primary"
+                            ref="resetForm"
+                            @click="reset()"
+                    >
+                        Book Another Appointment
+                    </v-btn>
+                </v-col>
+            </v-row>
+            </v-fade-transition>
         </v-stepper>
     </v-container>
 </template>
@@ -100,6 +114,9 @@
                 this.step = 6;
 
             },
+            reset(appointment) {
+
+            }
         }
     }
 </script>
