@@ -1,5 +1,4 @@
 <template>
-    <v-form>
         <v-container>
             <v-row>
 
@@ -31,7 +30,6 @@
 
             </v-row>
         </v-container>
-    </v-form>
 </template>
 
 <script>

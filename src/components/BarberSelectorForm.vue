@@ -1,6 +1,6 @@
 <template>
+    <v-container>
     <v-item-group>
-        <v-container>
             <v-row justify="center">
                 <v-col
                         :key="`barber-${index}`"
@@ -20,8 +20,8 @@
                     <p class="font-weight-black headline" style="font-size: 150%">{{barber.name}}</p>
                 </v-col>
             </v-row>
-        </v-container>
     </v-item-group>
+    </v-container>
 </template>
 
 <script>

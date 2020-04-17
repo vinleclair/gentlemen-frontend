@@ -1,8 +1,5 @@
 <template>
-    <v-card
-            class="mx-auto"
-            max-width="400"
-    >
+    <v-container>
         <v-list rounded>
             <v-list-item-group color="primary">
                 <v-list-item
@@ -19,7 +16,7 @@
                 </v-list-item>
             </v-list-item-group>
         </v-list>
-    </v-card>
+    </v-container>
 </template>
 
 <script>

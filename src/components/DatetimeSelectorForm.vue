@@ -1,9 +1,4 @@
 <template>
-    <v-form
-            lazy-validation
-            ref="datetimeSelector"
-    >
-        <v-container>
             <v-row no-gutters justify="space-between">
                 <v-col align="center">
                     <v-date-picker
@@ -12,7 +7,7 @@
                             @change="onUpdateDate"
                             :min="currentDate"
                             show-current
-                            v-model="appointment.date"
+                            v-model="date"
                     ></v-date-picker>
                     <v-row v-show="!appointment.date"  no-gutters align="center" justify="center" class="mt-12"><p class="font-weight-black" style="font-size: 150%">Please select a date</p></v-row>
 
@@ -38,9 +33,6 @@
                 </v-col>
 
             </v-row>
-
-        </v-container>
-    </v-form>
 </template>
 
 <script>
@@ -54,14 +46,8 @@
 
     export default {
         name: "DatetimeSelector",
-        props: {
-            selectedBarberId: {
-                type: Number
-            }
-        },
         data() {
             return {
-                date: '',
                 time: '',
                 currentDate: new Date().toISOString().slice(0,10),
                 timeslots: [],
@@ -83,19 +69,21 @@
                 } else {
                     this.timeslots = this.POSSIBLE_TIMESLOTS
                 }
-
-                this.$store.dispatch(APPOINTMENT_SET_DATE, date);
             },
             onUpdateTime(time) {
                 this.$store.dispatch(APPOINTMENT_SET_TIME, time);
-                this.time = time;
-            },
-            fetchUpcomingAppointments: (state) => {
-                this.$store.dispatch(FETCH_UPCOMING_APPOINTMENTS, state.appointment.barberId)
             }
         },
         computed: {
             ...mapGetters(["appointment", "upcomingAppointments"]),
+            date: {
+                set(date) {
+                    this.$store.dispatch(APPOINTMENT_SET_DATE, date)
+                },
+                get() {
+                    return this.appointment.date
+                }
+            },
             chunkedTimeslots() {
                 return chunk(this.timeslots, Math.ceil(this.timeslots.length / 4))
             }
@@ -128,7 +116,6 @@
                 "Sunday": 6,
             }
         },
-
 
     }
 </script>
