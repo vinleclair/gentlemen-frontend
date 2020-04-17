@@ -3,6 +3,10 @@
             ref="clientDetailsForm"
             v-model="valid"
     >
+        <v-container>
+        <v-row justify="center">
+            <v-col align="center">
+
         <v-text-field
                 @blur="onClientNameChange"
                 v-model="clientName"
@@ -11,7 +15,6 @@
                 style="width: 25%;"
 
         ></v-text-field>
-
         <v-text-field
                 justify="center"
                 style="width: 25%;"
@@ -20,6 +23,9 @@
                 :rules="clientEmailRules"
                 label="Email"
         ></v-text-field>
+            </v-col>
+        </v-row>
+        </v-container>
     </v-form>
 </template>
 

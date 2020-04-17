@@ -14,26 +14,26 @@
                             show-current
                             v-model="date"
                     ></v-date-picker>
-                </v-col>
-                <v-col>
-                    <v-slide-x-transition>
+                    <v-row v-show="!this.date"  no-gutters align="center" justify="center" class="mt-12"><p class="font-weight-black" style="font-size: 150%">Please select a date</p></v-row>
 
-                    <v-col  v-show="this.date">
-                    <v-row no-gutters align="center"  justify="center"><p class="font-weight-black">Timeslots</p></v-row>
-                    <v-row no-gutters align="center" justify="center">
+                    <v-row v-show="this.date"  no-gutters align="center" justify="center" class="mt-6"><p class="font-weight-black" style="font-size: 150%">Available timeslots</p></v-row>
+                        <v-slide-y-transition>
+
+                        <v-row v-show="this.date"  no-gutters align="center" justify="center">
+
                         <div v-for="timeslots in chunkedTimeslots">
 
-                            <div class="ma-1" v-for="timeslot in timeslots">
-                                <v-btn text @click="onUpdateTime(timeslot)">
+                            <div class="ma-6" v-for="timeslot in timeslots">
+                                <v-btn :disabled="time === timeslot" depressed color="primary" @click="onUpdateTime(timeslot)">
 
                                     {{timeslot}}
 
                                 </v-btn>
                             </div>
                         </div>
+
                     </v-row>
-                    </v-col>
-                    </v-slide-x-transition>
+                        </v-slide-y-transition>
 
                 </v-col>
 
@@ -90,6 +90,7 @@
             onUpdateTime(time) {
                 this.$store.dispatch(APPOINTMENT_UPDATE_TIME, time);
                 this.$emit('selected-time', time);
+                this.time = time;
             },
             fetchUpcomingAppointments() {
                 this.$store.dispatch(FETCH_UPCOMING_APPOINTMENTS, this.selectedBarberId)
@@ -98,7 +99,7 @@
         computed: {
             ...mapGetters(["upcomingAppointments"]),
             chunkedTimeslots() {
-                return chunk(this.timeslots, Math.ceil(this.timeslots.length / 2))
+                return chunk(this.timeslots, Math.ceil(this.timeslots.length / 4))
             }
         },
         watch: {

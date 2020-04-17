@@ -13,8 +13,8 @@
                     <v-list-item-content
                             @click="onSelectService(service.serviceId, service.name)"
                     >
-                        <v-list-item-title align="center">{{ service.name }}</v-list-item-title>
-                        <v-list-item-subtitle align="center">{{ service.price + "$  - " + service.duration + " mins"}}</v-list-item-subtitle>
+                        <v-list-item-title align="center" style="font-size: 150%" class="font-weight-black">{{ service.name }}</v-list-item-title>
+                        <v-list-item-subtitle align="center" class="font-weight-bold">{{ service.price + "$  - " + service.duration + " mins"}}</v-list-item-subtitle>
                     </v-list-item-content>
                 </v-list-item>
             </v-list-item-group>

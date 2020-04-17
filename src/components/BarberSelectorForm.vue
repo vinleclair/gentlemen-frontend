@@ -17,7 +17,7 @@
                                 :src="barber.imagePath"
                         />
                     </v-card>
-                    <p class="font-weight-black headline">{{barber.name}}</p>
+                    <p class="font-weight-black headline" style="font-size: 150%">{{barber.name}}</p>
                 </v-col>
             </v-row>
         </v-container>
