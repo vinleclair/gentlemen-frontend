@@ -17,7 +17,7 @@
                                 :src="service.imagePath"
                         />
                     </v-card>
-                    <p class="font-weight-black headline">{{service.name + " -- " + service.price + "$ -- " +
+                    <p class="font-weight-black headline">{{service.name + " - " + service.price + "$ - " +
                         service.duration + " mins"}}</p>
                 </v-col>
             </v-row>
