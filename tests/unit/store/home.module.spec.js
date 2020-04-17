@@ -1,11 +1,21 @@
 import {
     APPOINTMENT_SCHEDULE,
+    APPOINTMENT_SET_BARBER, APPOINTMENT_SET_CLIENT_EMAIL, APPOINTMENT_SET_CLIENT_NAME,
+    APPOINTMENT_SET_DATE,
+    APPOINTMENT_SET_SERVICE, APPOINTMENT_SET_TIME,
+    APPOINTMENT_UNSET_BARBER,
+    APPOINTMENT_UNSET_SERVICE,
     FETCH_BARBERS,
     FETCH_SERVICES,
     FETCH_UPCOMING_APPOINTMENTS
 } from "../../../src/store/actions.type";
-import {actions} from "../../../src/store/home.module";
-
+import {actions, mutations} from "../../../src/store/home.module";
+import {
+    SET_BARBER, SET_CLIENT_EMAIL, SET_CLIENT_NAME, SET_DATE,
+    SET_FETCHED_BARBERS,
+    SET_FETCHED_SERVICES, SET_SERVICE, SET_TIME,
+    SET_UPCOMING_APPOINTMENTS, UNSET_BARBER, UNSET_DATE, UNSET_SERVICE, UNSET_TIME
+} from "../../../src/store/mutations.type";
 
 jest.mock("vue", () => {
     return {
@@ -63,13 +73,26 @@ jest.mock("vue", () => {
                     }
                 };
             })
+        },
+        state: {
+            appointment: {
+                clientName: "",
+                clientEmail: "",
+                barberId: "",
+                serviceId: "",
+                date: "",
+                time: "",
+            },
+            barbers: [],
+            services: [],
+            upcomingAppointments: []
         }
     };
 });
 
-describe("API Calls", () => {
+describe("API call actions", () => {
     it("should return appointment from the create appointment action", async () => {
-        const state = {
+        const context = {
             state: {
                 appointment: {
                     clientName: "John Doe",
@@ -81,7 +104,9 @@ describe("API Calls", () => {
                 }
             }
         };
-        const appointment = await actions[APPOINTMENT_SCHEDULE](state);
+
+        const appointment = await actions[APPOINTMENT_SCHEDULE](context);
+
         expect(appointment).toMatchObject({
             appointment: {
                 clientName: "John Doe",
@@ -95,29 +120,32 @@ describe("API Calls", () => {
     });
 
     it("should return the barbers from the fetch barbers action", async () => {
-        const context = {
-            commit: () => {
-            }
-        };
+        const commitFunction = jest.fn();
+        const context = { commit: commitFunction };
+
         const barbers = await actions[FETCH_BARBERS](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(SET_FETCHED_BARBERS);
         expect(barbers).toHaveLength(2);
     });
 
     it("should return the services from the fetch services action", async () => {
-        const context = {
-            commit: () => {
-            }
-        };
+        const commitFunction = jest.fn();
+        const context = { commit: commitFunction  };
+
         const services = await actions[FETCH_SERVICES](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(SET_FETCHED_SERVICES);
         expect(services).toHaveLength(2);
     });
 
     it("should return the upcoming appointments from the fetch upcoming appointments action", async () => {
-        const context = {
-            commit: () => {
-            }
-        };
+        const commitFunction = jest.fn();
+        const context = { commit: commitFunction };
+
         const upcomingAppointments = await actions[FETCH_UPCOMING_APPOINTMENTS](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(SET_UPCOMING_APPOINTMENTS);
         expect(upcomingAppointments).toMatchObject({
             "2050-01-01": [
                 "12:00",
@@ -131,9 +159,274 @@ describe("API Calls", () => {
 });
 
 describe("Actions", () => {
-    it("should set barber when using set select barber action", () => {
-        const barberId = { id: 1, title: "Post" }
+    it("set barber and unset date/time on set barber action", () => {
+        const commitFunction = jest.fn();
+        const context = {commit: commitFunction}
+
+        actions[APPOINTMENT_SET_BARBER](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(SET_BARBER);
+        expect(commitFunction.mock.calls[1][0]).toBe(UNSET_DATE);
+        expect(commitFunction.mock.calls[2][0]).toBe(UNSET_TIME);
+    })
+
+    it("unset barber on unset barber action", () => {
+        const commitFunction = jest.fn();
+        const context = {commit: commitFunction}
+
+        actions[APPOINTMENT_UNSET_BARBER](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(UNSET_BARBER);
+    })
+
+    it("set service on set service action", () => {
+        const commitFunction = jest.fn();
+        const context = {commit: commitFunction}
+
+        actions[APPOINTMENT_SET_SERVICE](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(SET_SERVICE);
+    })
+
+
+    it("unset service on unset service action", () => {
+        const commitFunction = jest.fn();
+        const context = {commit: commitFunction}
+
+        actions[APPOINTMENT_UNSET_SERVICE](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(UNSET_SERVICE);
+    })
+
+    it("set date and unset time on set date action", () => {
+        const commitFunction = jest.fn();
+        const context = {commit: commitFunction}
+
+        actions[APPOINTMENT_SET_DATE](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(SET_DATE);
+        expect(commitFunction.mock.calls[1][0]).toBe(UNSET_TIME);
+    })
+
+    it("set time on set time action", () => {
+        const commitFunction = jest.fn();
+        const context = {commit: commitFunction}
+
+        actions[APPOINTMENT_SET_TIME](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(SET_TIME);
+    })
+
+    it("set client name on set client name action", () => {
+        const commitFunction = jest.fn();
+        const context = {commit: commitFunction}
+
+        actions[APPOINTMENT_SET_CLIENT_NAME](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(SET_CLIENT_NAME);
+    })
+
+    it("set client email on set client email action", () => {
+        const commitFunction = jest.fn();
+        const context = {commit: commitFunction}
+
+        actions[APPOINTMENT_SET_CLIENT_EMAIL](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(SET_CLIENT_EMAIL);
+    })
+});
+
+describe("Mutations", () => {
+    it("set barber", () => {
+        const barber = { barberId: 1, name: "John Doe" }
+        const state = {
+            appointment: {
+                barberId: ""
+            },
+            selections: {
+                barberName: "",
+            }
+        }
+
+        mutations[SET_BARBER](state, barber)
+
+        expect(state).toEqual({
+            appointment: {
+                barberId: 1
+            },
+            selections: {
+                barberName: "John Doe",
+            }
+        })
+    })
+
+    it("unset barber", () => {
+        const state = {
+            appointment: {
+                barberId: 1
+            },
+            selections: {
+                barberName: "John Doe",
+            }
+        }
+
+        mutations[UNSET_BARBER](state)
+
+        expect(state).toEqual({
+            appointment: {
+                barberId: ""
+            },
+            selections: {
+                barberName: "",
+            }
+        })
+    })
+
+    it("set service", () => {
+        const service = { serviceId: 1, name: "Haircut" }
+        const state = {
+            appointment: {
+                serviceId: ""
+            },
+            selections: {
+                serviceName: "",
+            }
+        }
+
+        mutations[SET_SERVICE](state, service)
+
+        expect(state).toEqual({
+            appointment: {
+                serviceId: 1
+            },
+            selections: {
+                serviceName: "Haircut",
+            }
+        })
+    })
+
+    it("unset service", () => {
+        const state = {
+            appointment: {
+                serviceId: 1
+            },
+            selections: {
+                serviceName: "Haircut",
+            }
+        }
+
+        mutations[UNSET_SERVICE](state)
+
+        expect(state).toEqual({
+            appointment: {
+                serviceId: ""
+            },
+            selections: {
+                serviceName: "",
+            }
+        })
+    })
+
+    it("set date", () => {
+        const date = "2020-01-01"
+        const state = {
+            appointment: {
+                date: ""
+            },
+        }
+
+        mutations[SET_DATE](state, date)
+
+        expect(state).toEqual({
+            appointment: {
+                date: "2020-01-01"
+            },
+        })
+    })
+
+    it("unset date", () => {
+        const state = {
+            appointment: {
+                date: "2020-01-01"
+            },
+        }
+
+        mutations[UNSET_DATE](state)
+
+        expect(state).toEqual({
+            appointment: {
+                date: ""
+            },
+        })
+    })
+
+    it("set time", () => {
+        const time = "12:00"
+        const state = {
+            appointment: {
+                time: ""
+            },
+        }
+
+        mutations[SET_TIME](state, time)
+
+        expect(state).toEqual({
+            appointment: {
+                time: "12:00"
+            },
+        })
+    })
+
+    it("unset time", () => {
+        const state = {
+            appointment: {
+                time: "12:00"
+            },
+        }
+
+        mutations[UNSET_TIME](state)
+
+        expect(state).toEqual({
+            appointment: {
+                time: ""
+            },
+        })
+    })
+
+    it("set client name", () => {
+        const clientName = "John Doe"
+        const state = {
+            appointment: {
+                clientName: ""
+            },
+        }
+
+        mutations[SET_CLIENT_NAME](state, clientName)
+
+        expect(state).toEqual({
+            appointment: {
+                clientName: "John Doe"
+            },
+        })
+    })
+
+    it("set client email", () => {
+        const clientEmail = "john.doe@example.com"
+        const state = {
+            appointment: {
+                clientEmail: ""
+            },
+        }
+
+        mutations[SET_CLIENT_EMAIL](state, clientEmail)
+
+        expect(state).toEqual({
+            appointment: {
+                clientEmail: "john.doe@example.com"
+            },
+        })
     })
 
 });
+
 
