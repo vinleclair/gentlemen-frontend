@@ -46,8 +46,8 @@
 <script>
     import {mapGetters} from "vuex";
     import {
-        APPOINTMENT_UPDATE_DATE,
-        APPOINTMENT_UPDATE_TIME
+        APPOINTMENT_SET_DATE,
+        APPOINTMENT_SET_TIME
     } from "@/store/actions.type";
     import {FETCH_UPCOMING_APPOINTMENTS} from "../store/actions.type";
     import chunk from 'chunk';
@@ -84,11 +84,11 @@
                     this.timeslots = this.POSSIBLE_TIMESLOTS
                 }
 
-                this.$store.dispatch(APPOINTMENT_UPDATE_DATE, date);
+                this.$store.dispatch(APPOINTMENT_SET_DATE, date);
                 this.$emit('selected-date', date);
             },
             onUpdateTime(time) {
-                this.$store.dispatch(APPOINTMENT_UPDATE_TIME, time);
+                this.$store.dispatch(APPOINTMENT_SET_TIME, time);
                 this.$emit('selected-time', time);
                 this.time = time;
             },

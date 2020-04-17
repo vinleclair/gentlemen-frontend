@@ -67,7 +67,7 @@ jest.mock("vue", () => {
     };
 });
 
-describe("Vuex Home Module", () => {
+describe("API Calls", () => {
     it("should return appointment from the create appointment action", async () => {
         const state = {
             state: {
@@ -129,3 +129,11 @@ describe("Vuex Home Module", () => {
         });
     });
 });
+
+describe("Actions", () => {
+    it("should set barber when using set select barber action", () => {
+        const barberId = { id: 1, title: "Post" }
+    })
+
+});
+

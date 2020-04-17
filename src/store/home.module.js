@@ -6,14 +6,14 @@ import {
 } from "@/common/api.service";
 import {
     APPOINTMENT_SCHEDULE,
-    APPOINTMENT_UPDATE_CLIENT_NAME,
-    APPOINTMENT_UPDATE_CLIENT_EMAIL,
-    APPOINTMENT_SELECT_BARBER,
+    APPOINTMENT_SET_CLIENT_NAME,
+    APPOINTMENT_SET_CLIENT_EMAIL,
+    APPOINTMENT_SET_BARBER,
     APPOINTMENT_UNSET_BARBER,
-    APPOINTMENT_SELECT_SERVICE,
+    APPOINTMENT_SET_SERVICE,
     APPOINTMENT_UNSET_SERVICE,
-    APPOINTMENT_UPDATE_DATE,
-    APPOINTMENT_UPDATE_TIME,
+    APPOINTMENT_SET_DATE,
+    APPOINTMENT_SET_TIME,
     FETCH_BARBERS,
     FETCH_UPCOMING_APPOINTMENTS,
     FETCH_SERVICES
@@ -54,28 +54,28 @@ export const actions = {
     [APPOINTMENT_SCHEDULE]({state}) {
         return AppointmentsService.create(state.appointment);
     },
-    [APPOINTMENT_SELECT_BARBER](context, barberId) {
+    [APPOINTMENT_SET_BARBER](context, barberId) {
         context.commit(SET_BARBER, barberId);
     },
     [APPOINTMENT_UNSET_BARBER](context) {
         context.commit(UNSET_BARBER);
     },
-    [APPOINTMENT_SELECT_SERVICE](context, serviceId) {
+    [APPOINTMENT_SET_SERVICE](context, serviceId) {
         context.commit(SET_SERVICE, serviceId);
     },
     [APPOINTMENT_UNSET_SERVICE](context) {
         context.commit(UNSET_SERVICE);
     },
-    [APPOINTMENT_UPDATE_DATE](context, date) {
+    [APPOINTMENT_SET_DATE](context, date) {
         context.commit(SET_DATE, date);
     },
-    [APPOINTMENT_UPDATE_TIME](context, time) {
+    [APPOINTMENT_SET_TIME](context, time) {
         context.commit(SET_TIME, time);
     },
-    [APPOINTMENT_UPDATE_CLIENT_NAME](context, name) {
+    [APPOINTMENT_SET_CLIENT_NAME](context, name) {
         context.commit(SET_CLIENT_NAME, name);
     },
-    [APPOINTMENT_UPDATE_CLIENT_EMAIL](context, email) {
+    [APPOINTMENT_SET_CLIENT_EMAIL](context, email) {
         context.commit(SET_CLIENT_EMAIL, email);
     },
     async [FETCH_BARBERS](context) {

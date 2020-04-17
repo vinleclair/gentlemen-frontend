@@ -24,7 +24,7 @@
 
 <script>
     import {
-        APPOINTMENT_SELECT_SERVICE,
+        APPOINTMENT_SET_SERVICE,
         APPOINTMENT_UNSET_SERVICE,
         FETCH_SERVICES
     } from "@/store/actions.type";
@@ -38,7 +38,7 @@
             onSelectService(serviceId, serviceName) {
                 if (this.selectedServiceId !== serviceId) {
                     this.selectedServiceId = serviceId
-                    this.$store.dispatch(APPOINTMENT_SELECT_SERVICE, serviceId);
+                    this.$store.dispatch(APPOINTMENT_SET_SERVICE, serviceId);
                 } else {
                     this.selectedServiceId = null
                     this.$store.dispatch(APPOINTMENT_UNSET_SERVICE);

@@ -26,7 +26,7 @@
 
 <script>
     import {
-        APPOINTMENT_SELECT_BARBER,
+        APPOINTMENT_SET_BARBER,
         APPOINTMENT_UNSET_BARBER,
         FETCH_BARBERS
     } from "@/store/actions.type";
@@ -43,7 +43,7 @@
             onSelectBarber(barberId, barberName) {
                 if (this.selectedBarberId !== barberId) {
                     this.selectedBarberId = barberId
-                    this.$store.dispatch(APPOINTMENT_SELECT_BARBER, barberId);
+                    this.$store.dispatch(APPOINTMENT_SET_BARBER, barberId);
                 } else {
                     this.selectedBarberId = null
                     this.$store.dispatch(APPOINTMENT_UNSET_BARBER);

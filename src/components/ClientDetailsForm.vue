@@ -31,8 +31,8 @@
 
 <script>
     import {
-        APPOINTMENT_UPDATE_CLIENT_NAME,
-        APPOINTMENT_UPDATE_CLIENT_EMAIL,
+        APPOINTMENT_SET_CLIENT_NAME,
+        APPOINTMENT_SET_CLIENT_EMAIL,
     } from "@/store/actions.type";
 
     export default {
@@ -67,9 +67,9 @@
         },
         methods: {
             onClientNameChange() {
-                this.$store.dispatch(APPOINTMENT_UPDATE_CLIENT_NAME, this.clientName);},
+                this.$store.dispatch(APPOINTMENT_SET_CLIENT_NAME, this.clientName);},
             onClientEmailChange(email) {
-                this.$store.dispatch(APPOINTMENT_UPDATE_CLIENT_EMAIL, this.clientEmail);
+                this.$store.dispatch(APPOINTMENT_SET_CLIENT_EMAIL, this.clientEmail);
             }
         }
     };
