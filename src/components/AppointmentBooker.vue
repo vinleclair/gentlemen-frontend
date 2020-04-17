@@ -37,9 +37,9 @@
             </v-stepper-step>
 
             <v-stepper-content step="4">
-                <ClientDetailsForm />
+                <ClientDetailsForm v-on:client-form-validity="clientFormIsValid = !clientFormIsValid"/>
                 <v-btn color="primary" @click="step = 5"
-                       :disabled="!(appointment.clientName && appointment.clientEmail)">Continue
+                       :disabled="!(clientFormIsValid)">Continue
                 </v-btn>
                 <v-btn text @click="step = 3">Back</v-btn>
             </v-stepper-content>
@@ -102,6 +102,7 @@
             return {
                 errors: {},
                 step: 1,
+                clientFormIsValid: false,
             }
         },
         methods: {
