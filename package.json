@@ -4,10 +4,9 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
-    "start": "node src/server.js",
-    "heroku-postbuild":
-    "npm install --prefix client && npm run build --prefix client"
+    "start": "node src/server.js"
   },
   "dependencies": {
     "axios": "^0.19.2",
