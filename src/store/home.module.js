@@ -44,7 +44,6 @@ const initialAppointmentState = {
         serviceName: "",
     },
     upcomingAppointments: [],
-
 }
 
 export const state = {
@@ -150,7 +149,7 @@ export const mutations = {
         state.upcomingAppointments = upcomingAppointments;
     },
     [RESET_APPOINTMENT_STATE](state) {
-        Object.assign(state, initialAppointmentState)
+        Object.assign(state, JSON.parse(JSON.stringify(initialAppointmentState)))
     }
 };
 
