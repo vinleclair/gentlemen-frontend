@@ -1,52 +1,48 @@
 <template>
     <v-container>
-        <v-list rounded>
-            <v-list-item-group color="primary">
-                <v-list-item
-                        :key="i"
-                        v-for="(service, i) in fetchedServices"
+        <v-item-group>
+            <v-row justify="center">
+                <v-col
+                        :key="`service-${index}`"
+                        md="4"
+                        align="center"
+                        v-for="(service, index) in fetchedServices"
                 >
-
-                    <v-list-item-content
+                    <v-card
                             @click="onSelectService(service)"
+                            align="stretch"
                     >
-                        <v-list-item-title align="center" style="font-size: 150%" class="font-weight-black">{{ service.name }}</v-list-item-title>
-                        <v-list-item-subtitle align="center" class="font-weight-bold">{{ service.price + "$  - " + service.duration + " mins"}}</v-list-item-subtitle>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list-item-group>
-        </v-list>
+                        <v-img
+                                :gradient="appointment.serviceId !== service.serviceId ? 'rgba(121,85,64,.75), rgba(161,136,117, .5)' : '' "
+                                :src="service.imagePath"
+                        />
+                    </v-card>
+                    <p class="font-weight-black headline">{{service.name + " -- " + service.price +  "$ -- " + service.duration + " mins"}}</p>
+                </v-col>
+            </v-row>
+        </v-item-group>
     </v-container>
 </template>
+
 
 <script>
     import {
         APPOINTMENT_SET_SERVICE,
-        APPOINTMENT_UNSET_SERVICE,
         FETCH_SERVICES
-    } from "@/store/actions.type";
+    } from "../store/actions.type";
     import {mapGetters} from "vuex";
 
     export default {
-        data: () => ({
-            selectedServiceId: null,
-        }),
         methods: {
             onSelectService(service) {
-                if (this.selectedServiceId !== service.serviceId) {
-                    this.selectedServiceId = service.serviceId
-                    this.$store.dispatch(APPOINTMENT_SET_SERVICE, service);
-                } else {
-                    this.selectedServiceId = null
-                    this.$store.dispatch(APPOINTMENT_UNSET_SERVICE);
-                }
+                this.$store.dispatch(APPOINTMENT_SET_SERVICE, service);
             }
         },
         mounted() {
             this.$store.dispatch(FETCH_SERVICES);
         },
         computed: {
-            ...mapGetters(["fetchedServices"]),
+            ...mapGetters(["appointment", "fetchedServices"]),
         }
     }
 </script>
