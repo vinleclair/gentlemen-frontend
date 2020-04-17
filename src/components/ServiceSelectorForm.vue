@@ -11,7 +11,7 @@
                 >
 
                     <v-list-item-content
-                            @click="onSelectService(service.serviceId, service.name)"
+                            @click="onSelectService(service)"
                     >
                         <v-list-item-title align="center" style="font-size: 150%" class="font-weight-black">{{ service.name }}</v-list-item-title>
                         <v-list-item-subtitle align="center" class="font-weight-bold">{{ service.price + "$  - " + service.duration + " mins"}}</v-list-item-subtitle>
@@ -35,15 +35,14 @@
             selectedServiceId: null,
         }),
         methods: {
-            onSelectService(serviceId, serviceName) {
-                if (this.selectedServiceId !== serviceId) {
-                    this.selectedServiceId = serviceId
-                    this.$store.dispatch(APPOINTMENT_SET_SERVICE, serviceId);
+            onSelectService(service) {
+                if (this.selectedServiceId !== service.serviceId) {
+                    this.selectedServiceId = service.serviceId
+                    this.$store.dispatch(APPOINTMENT_SET_SERVICE, service);
                 } else {
                     this.selectedServiceId = null
                     this.$store.dispatch(APPOINTMENT_UNSET_SERVICE);
                 }
-                this.$emit('selected-service', this.selectedServiceId, serviceName)
             }
         },
         mounted() {

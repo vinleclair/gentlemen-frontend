@@ -2,21 +2,21 @@
     <v-container>
         <v-stepper v-model="step" vertical>
             <v-stepper-step :complete="step > 1" step="1">Select professional
-                <small v-if="step > 1"> {{ this.selectedBarberName }} </small>
+                <small v-if="step > 1"> {{ selections.barberName }} </small>
             </v-stepper-step>
 
             <v-stepper-content step="1">
-                <BarberSelectorForm @selected-barber="onChildSelectedBarber"/>
-                <v-btn color="primary" @click="step = 2" :disabled="!selectedBarberId">Continue</v-btn>
+                <BarberSelectorForm />
+                <v-btn color="primary" @click="step = 2" :disabled="!appointment.barberId">Continue</v-btn>
             </v-stepper-content>
 
             <v-stepper-step :complete="step > 2" step="2">Select service
-                <small v-if="step > 2"> {{ this.selectedServiceName }} </small>
+                <small v-if="step > 2"> {{ selections.serviceName }} </small>
             </v-stepper-step>
 
             <v-stepper-content step="2">
-                <ServiceSelectorForm @selected-service="onChildSelectedService"/>
-                <v-btn color="primary" @click="step = 3" :disabled="!selectedServiceId">Continue</v-btn>
+                <ServiceSelectorForm />
+                <v-btn color="primary" @click="step = 3" :disabled="!appointment.serviceId">Continue</v-btn>
                 <v-btn text @click="step = 1">Back</v-btn>
             </v-stepper-content>
 
@@ -25,10 +25,10 @@
             </v-stepper-step>
 
             <v-stepper-content step="3">
-                <DatetimeSelectorForm :selectedBarberId="selectedBarberId" @selected-date="onChildSelectedDate" @selected-time="onChildSelectedTime"/>
+                <DatetimeSelectorForm />
                 <v-btn color="primary" @click="step = 4"
-                       :disabled="!(this.selectedDate !== null && this.selectedTime !== null)">Continue
-                </v-btn> <!-- TODO Refactor, why does disabled boolean evaluates this way? -->
+                       :disabled="!(appointment.date && appointment.time)">Continue
+                </v-btn>
                 <v-btn text @click="step = 2">Back</v-btn>
             </v-stepper-content>
 
@@ -37,10 +37,10 @@
             </v-stepper-step>
 
             <v-stepper-content step="4">
-                <ClientDetailsForm @selected-client-name="onChildSelectedClientName" @selected-client-email="onChildSelectedClientEmail"/>
+                <ClientDetailsForm />
                 <v-btn color="primary" @click="step = 5"
-                       :disabled="!(this.selectedClientName !== null && this.selectedClientEmail !== null)">Continue
-                </v-btn> <!-- TODO Refactor, why does disabled boolean evaluates this way? -->
+                       :disabled="!(appointment.clientName && appointment.clientEmail)">Continue
+                </v-btn>
                 <v-btn text @click="step = 3">Back</v-btn>
             </v-stepper-content>
 
@@ -49,8 +49,7 @@
             </v-stepper-step>
 
             <v-stepper-content step="5">
-                <ReviewInformationForm v-bind:selectedBarberName="this.selectedBarberName"
-                                       v-bind:selectedServiceName="this.selectedServiceName"/>
+                <ReviewInformationForm />
                 <v-btn
                         ref="book"
                         color="success"
@@ -76,7 +75,7 @@
     export default {
         name: 'AppointmentBooker',
         computed: {
-            ...mapGetters(["appointment"])
+            ...mapGetters(["appointment", "selections"])
         },
         components: {
             BarberSelectorForm,
@@ -89,39 +88,9 @@
             return {
                 errors: {},
                 step: 1,
-                //TODO Clean refactor DRY
-                selectedBarberId: null,
-                selectedBarberName: null,
-                selectedServiceId: null,
-                selectedServiceName: null,
-                selectedDate: null,
-                selectedTime: null,
-                selectedClientName: null,
-                selectedClientEmail: null,
             }
         },
         methods: {
-            //TODO Clean refactor DRY
-            onChildSelectedBarber(barberId, barberName) {
-                this.selectedBarberId = barberId;
-                this.selectedBarberName = barberName;
-            },
-            onChildSelectedService(serviceId, serviceName) {
-                this.selectedServiceId = serviceId;
-                this.selectedServiceName = serviceName;
-            },
-            onChildSelectedDate(date) {
-                this.selectedDate = date;
-            },
-            onChildSelectedTime(time) {
-                this.selectedTime = time;
-            },
-            onChildSelectedClientName(name) {
-                this.selectedClientName = name;
-            },
-            onChildSelectedClientEmail(email) {
-                this.selectedClientEmail = email;
-            },
             book(appointment) {
                 this.$store
                     .dispatch(APPOINTMENT_SCHEDULE, {appointment})

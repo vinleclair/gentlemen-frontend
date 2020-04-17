@@ -45,31 +45,20 @@
                     v => !!v || 'Name is required',
                 ],
                 clientEmail: '',
-                // TODO Stricter email validation rules
                 clientEmailRules: [
                     v => !!v || 'E-mail is required',
                     v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
                 ],
             };
         },
-        watch: {
-            'valid': function (valid) {
-                if (valid) {
-                    this.$emit('selected-client-name', name)
-                    this.$emit('selected-client-email', this.email)
-
-                } else {
-                    this.$emit('selected-client-name', null);
-                    this.$emit('selected-client-email', null);
-
-                }
-            },
-        },
         methods: {
             onClientNameChange() {
                 this.$store.dispatch(APPOINTMENT_SET_CLIENT_NAME, this.clientName);},
-            onClientEmailChange(email) {
-                this.$store.dispatch(APPOINTMENT_SET_CLIENT_EMAIL, this.clientEmail);
+            onClientEmailChange() {
+                //TODO Review behavior
+                if (this.valid) {
+                    this.$store.dispatch(APPOINTMENT_SET_CLIENT_EMAIL, this.clientEmail);
+                }
             }
         }
     };

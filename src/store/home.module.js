@@ -25,7 +25,9 @@ import {
     SET_SERVICE,
     UNSET_SERVICE,
     SET_DATE,
+    UNSET_DATE,
     SET_TIME,
+    UNSET_TIME,
     SET_CLIENT_NAME,
     SET_CLIENT_EMAIL,
     SET_BARBERS,
@@ -47,27 +49,34 @@ const appointmentInitialState = {
 export const state = Object.assign({}, {...appointmentInitialState}, {
     barbers: [],
     services: [],
-    upcomingAppointments: []
+    upcomingAppointments: [],
+    selections: {
+        barberName: "",
+        serviceName: "",
+    }
 });
 
 export const actions = {
     [APPOINTMENT_SCHEDULE]({state}) {
         return AppointmentsService.create(state.appointment);
     },
-    [APPOINTMENT_SET_BARBER](context, barberId) {
-        context.commit(SET_BARBER, barberId);
+    [APPOINTMENT_SET_BARBER](context, barber) {
+        context.commit(SET_BARBER, barber);
+        context.commit(UNSET_DATE);
+        context.commit(UNSET_TIME);
     },
     [APPOINTMENT_UNSET_BARBER](context) {
         context.commit(UNSET_BARBER);
     },
-    [APPOINTMENT_SET_SERVICE](context, serviceId) {
-        context.commit(SET_SERVICE, serviceId);
+    [APPOINTMENT_SET_SERVICE](context, service) {
+        context.commit(SET_SERVICE, service);
     },
     [APPOINTMENT_UNSET_SERVICE](context) {
         context.commit(UNSET_SERVICE);
     },
     [APPOINTMENT_SET_DATE](context, date) {
         context.commit(SET_DATE, date);
+        context.commit(UNSET_TIME);
     },
     [APPOINTMENT_SET_TIME](context, time) {
         context.commit(SET_TIME, time);
@@ -99,23 +108,33 @@ export const mutations = {
     [SET_APPOINTMENT](state, appointment) {
         state.appointment = appointment;
     },
-    [SET_BARBER](state, barberId) {
-        state.appointment.barberId = barberId;
+    [SET_BARBER](state, barber) {
+        state.appointment.barberId = barber.barberId;
+        state.selections.barberName = barber.name
     },
     [UNSET_BARBER](state) {
         state.appointment.barberId = "";
+        state.selections.barberName = "";
     },
-    [SET_SERVICE](state, serviceId) {
-        state.appointment.serviceId = serviceId;
+    [SET_SERVICE](state, service) {
+        state.appointment.serviceId = service.serviceId;
+        state.selections.serviceName = service.name
     },
     [UNSET_SERVICE](state) {
         state.appointment.serviceId = "";
+        state.selections.serviceName = "";
     },
     [SET_DATE](state, date) {
         state.appointment.date = date;
     },
+    [UNSET_DATE](state) {
+        state.appointment.date = "";
+    },
     [SET_TIME](state, time) {
         state.appointment.time = time;
+    },
+    [UNSET_TIME](state) {
+        state.appointment.time = "";
     },
     [SET_CLIENT_NAME](state, name) {
         state.appointment.clientName = name;
@@ -147,6 +166,9 @@ export const getters = {
     },
     upcomingAppointments(state) {
         return state.upcomingAppointments;
+    },
+    selections(state) {
+        return state.selections;
     }
 };
 

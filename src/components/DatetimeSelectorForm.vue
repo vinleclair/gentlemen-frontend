@@ -12,19 +12,19 @@
                             @change="onUpdateDate"
                             :min="currentDate"
                             show-current
-                            v-model="date"
+                            v-model="appointment.date"
                     ></v-date-picker>
-                    <v-row v-show="!this.date"  no-gutters align="center" justify="center" class="mt-12"><p class="font-weight-black" style="font-size: 150%">Please select a date</p></v-row>
+                    <v-row v-show="!appointment.date"  no-gutters align="center" justify="center" class="mt-12"><p class="font-weight-black" style="font-size: 150%">Please select a date</p></v-row>
 
-                    <v-row v-show="this.date"  no-gutters align="center" justify="center" class="mt-6"><p class="font-weight-black" style="font-size: 150%">Available timeslots</p></v-row>
-                        <v-slide-y-transition>
+                    <v-row v-show="appointment.date"  no-gutters align="center" justify="center" class="mt-6"><p class="font-weight-black" style="font-size: 150%">Available timeslots</p></v-row>
+                        <v-fade-transition>
 
-                        <v-row v-show="this.date"  no-gutters align="center" justify="center">
+                        <v-row v-show="appointment.date"  no-gutters align="center" justify="center">
 
                         <div v-for="timeslots in chunkedTimeslots">
 
                             <div class="ma-6" v-for="timeslot in timeslots">
-                                <v-btn :disabled="time === timeslot" depressed color="primary" @click="onUpdateTime(timeslot)">
+                                <v-btn :disabled="appointment.time === timeslot" depressed color="primary" @click="onUpdateTime(timeslot)">
 
                                     {{timeslot}}
 
@@ -33,7 +33,7 @@
                         </div>
 
                     </v-row>
-                        </v-slide-y-transition>
+                        </v-fade-transition>
 
                 </v-col>
 
@@ -85,28 +85,19 @@
                 }
 
                 this.$store.dispatch(APPOINTMENT_SET_DATE, date);
-                this.$emit('selected-date', date);
             },
             onUpdateTime(time) {
                 this.$store.dispatch(APPOINTMENT_SET_TIME, time);
-                this.$emit('selected-time', time);
                 this.time = time;
             },
-            fetchUpcomingAppointments() {
-                this.$store.dispatch(FETCH_UPCOMING_APPOINTMENTS, this.selectedBarberId)
+            fetchUpcomingAppointments: (state) => {
+                this.$store.dispatch(FETCH_UPCOMING_APPOINTMENTS, state.appointment.barberId)
             }
         },
         computed: {
-            ...mapGetters(["upcomingAppointments"]),
+            ...mapGetters(["appointment", "upcomingAppointments"]),
             chunkedTimeslots() {
                 return chunk(this.timeslots, Math.ceil(this.timeslots.length / 4))
-            }
-        },
-        watch: {
-            'selectedBarberId': function () {
-                this.fetchUpcomingAppointments();
-                this.date = '';
-                this.time = '';
             }
         },
         created() {
@@ -136,7 +127,8 @@
                 "Saturday": 5,
                 "Sunday": 6,
             }
+        },
 
-        }
+
     }
 </script>

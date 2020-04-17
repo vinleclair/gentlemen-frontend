@@ -9,11 +9,11 @@
                         v-for="(barber, index) in barbers"
                 >
                     <v-card
-                            @click="onSelectBarber(barber.barberId, barber.name)"
+                            @click="onSelectBarber(barber)"
                             align="stretch"
                     >
                         <v-img
-                                :gradient="selectedBarberId !== barber.barberId ? 'rgba(121,85,64,.75), rgba(161,136,117, .5)' : '' "
+                                :gradient="appointment.barberId !== barber.barberId ? 'rgba(121,85,64,.75), rgba(161,136,117, .5)' : '' "
                                 :src="barber.imagePath"
                         />
                     </v-card>
@@ -28,7 +28,8 @@
     import {
         APPOINTMENT_SET_BARBER,
         APPOINTMENT_UNSET_BARBER,
-        FETCH_BARBERS
+        FETCH_BARBERS,
+        FETCH_UPCOMING_APPOINTMENTS
     } from "@/store/actions.type";
     import {mapGetters} from "vuex";
 
@@ -40,15 +41,15 @@
             };
         },
         methods: {
-            onSelectBarber(barberId, barberName) {
-                if (this.selectedBarberId !== barberId) {
-                    this.selectedBarberId = barberId
-                    this.$store.dispatch(APPOINTMENT_SET_BARBER, barberId);
+            onSelectBarber(barber) {
+                if (this.selectedBarberId !== barber.barberId) {
+                    this.$store.dispatch(FETCH_UPCOMING_APPOINTMENTS, barber.barberId)
+                    this.selectedBarberId = barber.barberId
+                    this.$store.dispatch(APPOINTMENT_SET_BARBER, barber);
                 } else {
                     this.selectedBarberId = null
                     this.$store.dispatch(APPOINTMENT_UNSET_BARBER);
                 }
-                this.$emit('selected-barber', this.selectedBarberId, barberName)
             }
 
         },
@@ -56,7 +57,7 @@
             this.$store.dispatch(FETCH_BARBERS);
         },
         computed: {
-            ...mapGetters(["barbers"]),
+            ...mapGetters(["barbers", "appointment"]),
         }
     }
 </script>
