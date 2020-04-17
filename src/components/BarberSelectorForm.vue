@@ -27,10 +27,11 @@
 <script>
     import {
         APPOINTMENT_SET_BARBER,
-        APPOINTMENT_UNSET_BARBER,
         FETCH_BARBERS,
-        FETCH_UPCOMING_APPOINTMENTS
-    } from "@/store/actions.type";
+        FETCH_UPCOMING_APPOINTMENTS,
+        APPOINTMENT_UNSET_DATE,
+        APPOINTMENT_UNSET_TIME
+    } from "../store/actions.type";
     import {mapGetters} from "vuex";
 
     export default {
@@ -42,16 +43,11 @@
         },
         methods: {
             onSelectBarber(barber) {
-                if (this.selectedBarberId !== barber.barberId) {
-                    this.$store.dispatch(FETCH_UPCOMING_APPOINTMENTS, barber.barberId)
-                    this.selectedBarberId = barber.barberId
-                    this.$store.dispatch(APPOINTMENT_SET_BARBER, barber);
-                } else {
-                    this.selectedBarberId = null
-                    this.$store.dispatch(APPOINTMENT_UNSET_BARBER);
-                }
+                this.$store.dispatch(APPOINTMENT_SET_BARBER, barber);
+                this.$store.dispatch(APPOINTMENT_UNSET_DATE);
+                this.$store.dispatch(APPOINTMENT_UNSET_TIME);
+                this.$store.dispatch(FETCH_UPCOMING_APPOINTMENTS, barber.barberId)
             }
-
         },
         mounted() {
             this.$store.dispatch(FETCH_BARBERS);

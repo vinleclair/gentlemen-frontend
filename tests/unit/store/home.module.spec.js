@@ -180,17 +180,6 @@ describe("Actions", () => {
         actions[APPOINTMENT_SET_BARBER](context);
 
         expect(commitFunction.mock.calls[0][0]).toBe(SET_BARBER);
-        expect(commitFunction.mock.calls[1][0]).toBe(UNSET_DATE);
-        expect(commitFunction.mock.calls[2][0]).toBe(UNSET_TIME);
-    })
-
-    it("unset barber on unset barber action", () => {
-        const commitFunction = jest.fn();
-        const context = {commit: commitFunction}
-
-        actions[APPOINTMENT_UNSET_BARBER](context);
-
-        expect(commitFunction.mock.calls[0][0]).toBe(UNSET_BARBER);
     })
 
     it("set service on set service action", () => {
@@ -202,16 +191,6 @@ describe("Actions", () => {
         expect(commitFunction.mock.calls[0][0]).toBe(SET_SERVICE);
     })
 
-
-    it("unset service on unset service action", () => {
-        const commitFunction = jest.fn();
-        const context = {commit: commitFunction}
-
-        actions[APPOINTMENT_UNSET_SERVICE](context);
-
-        expect(commitFunction.mock.calls[0][0]).toBe(UNSET_SERVICE);
-    })
-
     it("set date and unset time on set date action", () => {
         const commitFunction = jest.fn();
         const context = {commit: commitFunction}
@@ -219,7 +198,6 @@ describe("Actions", () => {
         actions[APPOINTMENT_SET_DATE](context);
 
         expect(commitFunction.mock.calls[0][0]).toBe(SET_DATE);
-        expect(commitFunction.mock.calls[1][0]).toBe(UNSET_TIME);
     })
 
     it("set time on set time action", () => {
@@ -283,28 +261,6 @@ describe("Mutations", () => {
         })
     })
 
-    it("unset barber", () => {
-        const state = {
-            appointment: {
-                barberId: 1
-            },
-            selections: {
-                barberName: "John Doe",
-            }
-        }
-
-        mutations[UNSET_BARBER](state)
-
-        expect(state).toEqual({
-            appointment: {
-                barberId: ""
-            },
-            selections: {
-                barberName: "",
-            }
-        })
-    })
-
     it("set service", () => {
         const service = {serviceId: 1, name: "Haircut"}
         const state = {
@@ -324,28 +280,6 @@ describe("Mutations", () => {
             },
             selections: {
                 serviceName: "Haircut",
-            }
-        })
-    })
-
-    it("unset service", () => {
-        const state = {
-            appointment: {
-                serviceId: 1
-            },
-            selections: {
-                serviceName: "Haircut",
-            }
-        }
-
-        mutations[UNSET_SERVICE](state)
-
-        expect(state).toEqual({
-            appointment: {
-                serviceId: ""
-            },
-            selections: {
-                serviceName: "",
             }
         })
     })
@@ -460,6 +394,11 @@ describe("Mutations", () => {
                 date: "2020-01-01",
                 time: "12:00",
             },
+            selections: {
+                barberName: "Jeff Doe",
+                serviceName: "Haircut",
+            },
+            upcomingAppointments: {"2025-01-01": ["12:00"], "2025-12-31": ["12:00", "13:00"]},
         }
 
         mutations[RESET_APPOINTMENT_STATE](state)
@@ -473,6 +412,11 @@ describe("Mutations", () => {
                 date: "",
                 time: "",
             },
+            selections: {
+                barberName: "",
+                serviceName: "",
+            },
+            upcomingAppointments: [],
         })
     })
 });

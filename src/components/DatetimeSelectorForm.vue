@@ -39,9 +39,9 @@
     import {mapGetters} from "vuex";
     import {
         APPOINTMENT_SET_DATE,
-        APPOINTMENT_SET_TIME
-    } from "@/store/actions.type";
-    import {FETCH_UPCOMING_APPOINTMENTS} from "../store/actions.type";
+        APPOINTMENT_SET_TIME,
+        APPOINTMENT_UNSET_TIME
+    } from "../store/actions.type";
     import chunk from 'chunk';
 
     export default {
@@ -79,6 +79,7 @@
             date: {
                 set(date) {
                     this.$store.dispatch(APPOINTMENT_SET_DATE, date)
+                    this.$store.dispatch(APPOINTMENT_UNSET_TIME);
                 },
                 get() {
                     return this.appointment.date

@@ -9,20 +9,16 @@ import {
     APPOINTMENT_SET_CLIENT_NAME,
     APPOINTMENT_SET_CLIENT_EMAIL,
     APPOINTMENT_SET_BARBER,
-    APPOINTMENT_UNSET_BARBER,
     APPOINTMENT_SET_SERVICE,
-    APPOINTMENT_UNSET_SERVICE,
     APPOINTMENT_SET_DATE,
     APPOINTMENT_SET_TIME,
     FETCH_BARBERS,
     FETCH_UPCOMING_APPOINTMENTS,
-    FETCH_SERVICES, APPOINTMENT_RESET_STATE
+    FETCH_SERVICES, APPOINTMENT_RESET_STATE, APPOINTMENT_UNSET_DATE, APPOINTMENT_UNSET_TIME
 } from "./actions.type";
 import {
     SET_BARBER,
-    UNSET_BARBER,
     SET_SERVICE,
-    UNSET_SERVICE,
     SET_DATE,
     UNSET_DATE,
     SET_TIME,
@@ -42,7 +38,13 @@ const initialAppointmentState = {
         serviceId: "",
         date: "",
         time: "",
-    }
+    },
+    selections: {
+        barberName: "",
+        serviceName: "",
+    },
+    upcomingAppointments: [],
+
 }
 
 export const state = {
@@ -58,9 +60,9 @@ export const state = {
         barberName: "",
         serviceName: "",
     },
+    upcomingAppointments: [],
     fetchedBarbers: [],
     fetchedServices: [],
-    upcomingAppointments: [],
 };
 
 export const actions = {
@@ -69,24 +71,21 @@ export const actions = {
     },
     [APPOINTMENT_SET_BARBER](context, barber) {
         context.commit(SET_BARBER, barber);
-        context.commit(UNSET_DATE);
-        context.commit(UNSET_TIME);
-    },
-    [APPOINTMENT_UNSET_BARBER](context) {
-        context.commit(UNSET_BARBER);
     },
     [APPOINTMENT_SET_SERVICE](context, service) {
         context.commit(SET_SERVICE, service);
     },
-    [APPOINTMENT_UNSET_SERVICE](context) {
-        context.commit(UNSET_SERVICE);
-    },
     [APPOINTMENT_SET_DATE](context, date) {
         context.commit(SET_DATE, date);
-        context.commit(UNSET_TIME);
+    },
+    [APPOINTMENT_UNSET_DATE](context) {
+        context.commit(UNSET_DATE);
     },
     [APPOINTMENT_SET_TIME](context, time) {
         context.commit(SET_TIME, time);
+    },
+    [APPOINTMENT_UNSET_TIME](context) {
+        context.commit(UNSET_TIME);
     },
     [APPOINTMENT_SET_CLIENT_NAME](context, name) {
         context.commit(SET_CLIENT_NAME, name);
@@ -119,17 +118,9 @@ export const mutations = {
         state.appointment.barberId = barber.barberId;
         state.selections.barberName = barber.name
     },
-    [UNSET_BARBER](state) {
-        state.appointment.barberId = "";
-        state.selections.barberName = "";
-    },
     [SET_SERVICE](state, service) {
         state.appointment.serviceId = service.serviceId;
         state.selections.serviceName = service.name
-    },
-    [UNSET_SERVICE](state) {
-        state.appointment.serviceId = "";
-        state.selections.serviceName = "";
     },
     [SET_DATE](state, date) {
         state.appointment.date = date;
@@ -159,7 +150,7 @@ export const mutations = {
         state.upcomingAppointments = upcomingAppointments;
     },
     [RESET_APPOINTMENT_STATE](state) {
-        Object.assign(state.appointment, initialAppointmentState.appointment);
+        Object.assign(state, initialAppointmentState)
     }
 };
 
