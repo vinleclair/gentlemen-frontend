@@ -1,20 +1,32 @@
 import {
     APPOINTMENT_SCHEDULE,
-    APPOINTMENT_SET_BARBER, APPOINTMENT_SET_CLIENT_EMAIL, APPOINTMENT_SET_CLIENT_NAME,
+    APPOINTMENT_SET_BARBER,
+    APPOINTMENT_SET_CLIENT_EMAIL,
+    APPOINTMENT_SET_CLIENT_NAME,
     APPOINTMENT_SET_DATE,
-    APPOINTMENT_SET_SERVICE, APPOINTMENT_SET_TIME,
+    APPOINTMENT_SET_SERVICE,
+    APPOINTMENT_SET_TIME,
     APPOINTMENT_UNSET_BARBER,
     APPOINTMENT_UNSET_SERVICE,
     FETCH_BARBERS,
     FETCH_SERVICES,
     FETCH_UPCOMING_APPOINTMENTS
 } from "../../../src/store/actions.type";
-import {actions, mutations} from "../../../src/store/home.module";
+import {actions, getters, mutations} from "../../../src/store/home.module";
 import {
-    SET_BARBER, SET_CLIENT_EMAIL, SET_CLIENT_NAME, SET_DATE,
+    SET_BARBER,
+    SET_CLIENT_EMAIL,
+    SET_CLIENT_NAME,
+    SET_DATE,
     SET_FETCHED_BARBERS,
-    SET_FETCHED_SERVICES, SET_SERVICE, SET_TIME,
-    SET_UPCOMING_APPOINTMENTS, UNSET_BARBER, UNSET_DATE, UNSET_SERVICE, UNSET_TIME
+    SET_FETCHED_SERVICES,
+    SET_SERVICE,
+    SET_TIME,
+    SET_UPCOMING_APPOINTMENTS,
+    UNSET_BARBER,
+    UNSET_DATE,
+    UNSET_SERVICE,
+    UNSET_TIME
 } from "../../../src/store/mutations.type";
 
 jest.mock("vue", () => {
@@ -121,7 +133,7 @@ describe("API call actions", () => {
 
     it("should return the barbers from the fetch barbers action", async () => {
         const commitFunction = jest.fn();
-        const context = { commit: commitFunction };
+        const context = {commit: commitFunction};
 
         const barbers = await actions[FETCH_BARBERS](context);
 
@@ -131,7 +143,7 @@ describe("API call actions", () => {
 
     it("should return the services from the fetch services action", async () => {
         const commitFunction = jest.fn();
-        const context = { commit: commitFunction  };
+        const context = {commit: commitFunction};
 
         const services = await actions[FETCH_SERVICES](context);
 
@@ -141,7 +153,7 @@ describe("API call actions", () => {
 
     it("should return the upcoming appointments from the fetch upcoming appointments action", async () => {
         const commitFunction = jest.fn();
-        const context = { commit: commitFunction };
+        const context = {commit: commitFunction};
 
         const upcomingAppointments = await actions[FETCH_UPCOMING_APPOINTMENTS](context);
 
@@ -238,7 +250,7 @@ describe("Actions", () => {
 
 describe("Mutations", () => {
     it("set barber", () => {
-        const barber = { barberId: 1, name: "John Doe" }
+        const barber = {barberId: 1, name: "John Doe"}
         const state = {
             appointment: {
                 barberId: ""
@@ -283,7 +295,7 @@ describe("Mutations", () => {
     })
 
     it("set service", () => {
-        const service = { serviceId: 1, name: "Haircut" }
+        const service = {serviceId: 1, name: "Haircut"}
         const state = {
             appointment: {
                 serviceId: ""
@@ -426,7 +438,61 @@ describe("Mutations", () => {
             },
         })
     })
-
 });
+
+describe("getters", () => {
+
+    const exampleState = {
+        appointment: {
+            clientName: "John Doe",
+            clientEmail: "john.doe@example.com",
+            barberId: 1,
+            serviceId: 1,
+            date: "2020-01-01",
+            time: "12:00",
+        },
+        selections: {
+            barberName: "Jeff Doe",
+            serviceName: "Haircut",
+        },
+        upcomingAppointments: {"2025-01-01": ["12:00"], "2025-12-31": ["12:00", "13:00"]},
+        fetchedBarbers: [1, 2, 3],
+        fetchedServices: [1, 2, 3]
+    }
+
+    it("returns appointment", () => {
+        expect(getters.appointment(exampleState)).toEqual({
+                clientName: "John Doe",
+                clientEmail: "john.doe@example.com",
+                barberId: 1,
+                serviceId: 1,
+                date: "2020-01-01",
+                time: "12:00",
+            },
+        )
+    })
+
+    it("returns fetched barbers", () => {
+        expect(getters.fetchedBarbers(exampleState)).toEqual([1, 2, 3])
+    })
+
+    it("returns fetched services", () => {
+        expect(getters.fetchedServices(exampleState)).toEqual([1, 2, 3])
+    })
+
+    it("returns upcoming appointments", () => {
+        expect(getters.upcomingAppointments(exampleState)).toEqual({
+            "2025-01-01": ["12:00"],
+            "2025-12-31": ["12:00", "13:00"]
+        })
+    })
+
+    it("returns selections", () => {
+        expect(getters.selections(exampleState)).toEqual({
+            barberName: "Jeff Doe",
+            serviceName: "Haircut",
+        },)
+    })
+})
 
 
