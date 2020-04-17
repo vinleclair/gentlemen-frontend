@@ -52,6 +52,7 @@
                 <ReviewInformationForm v-bind:selectedBarberName="this.selectedBarberName"
                                        v-bind:selectedServiceName="this.selectedServiceName"/>
                 <v-btn
+                        ref="book"
                         color="success"
                         @click="book(appointment)"
                 >

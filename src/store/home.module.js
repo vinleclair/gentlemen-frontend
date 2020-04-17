@@ -38,9 +38,9 @@ const appointmentInitialState = {
         clientName: "",
         clientEmail: "",
         barberId: "",
+        serviceId: "",
         date: "",
         time: "",
-        serviceId: ""
     },
 }
 
@@ -78,23 +78,15 @@ export const actions = {
     [APPOINTMENT_UPDATE_CLIENT_EMAIL](context, email) {
         context.commit(SET_CLIENT_EMAIL, email);
     },
-    async [FETCH_BARBERS]({ commit }) {
-        return BarbersService.get()
-            .then(({ data }) => {
-                commit(SET_BARBERS, data.barbers);
-            })
-            .catch(error => {
-                throw new Error(error);
-            });
+    async [FETCH_BARBERS](context) {
+        const { data } = await BarbersService.get();
+        context.commit(SET_BARBERS, data.barbers);
+        return data.barbers;
     },
-    async [FETCH_SERVICES]({ commit }) {
-        return ServicesService.get()
-            .then(({ data }) => {
-                commit(SET_SERVICES, data.services);
-            })
-            .catch(error => {
-                throw new Error(error);
-            });
+    async [FETCH_SERVICES](context) {
+        const { data } = await ServicesService.get();
+        context.commit(SET_SERVICES, data.services);
+        return data.services;
     },
     async [FETCH_UPCOMING_APPOINTMENTS](context, barberId) {
         const { data } = await AppointmentsService.getUpcomingAppointments(barberId);

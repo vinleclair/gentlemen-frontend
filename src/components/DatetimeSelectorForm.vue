@@ -10,7 +10,7 @@
                             :allowed-dates=allowedDates
                             :landscape="$vuetify.breakpoint.smAndUp"
                             @change="onUpdateDate"
-                            min="2020-04-11"
+                            :min="currentDate"
                             show-current
                             v-model="date"
                     ></v-date-picker>
@@ -63,6 +63,7 @@
             return {
                 date: '',
                 time: '',
+                currentDate: new Date().toISOString().slice(0,10),
                 timeslots: [],
             };
         },
@@ -103,6 +104,8 @@
         watch: {
             'selectedBarberId': function () {
                 this.fetchUpcomingAppointments();
+                this.date = '';
+                this.time = '';
             }
         },
         created() {

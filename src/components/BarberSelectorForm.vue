@@ -14,7 +14,7 @@
                     >
                         <v-img
                                 :gradient="selectedBarberId !== barber.barberId ? 'rgba(121,85,64,.75), rgba(161,136,117, .5)' : '' "
-                                :src="'/img/' + barber.imagePath"
+                                :src="barber.imagePath"
                         />
                     </v-card>
                     <p class="font-weight-black headline">{{barber.name}}</p>
@@ -52,7 +52,7 @@
             }
 
         },
-        beforeMount() {
+        mounted() {
             this.$store.dispatch(FETCH_BARBERS);
         },
         computed: {
