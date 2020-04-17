@@ -1,33 +1,32 @@
-import Vue from "vue";
+import {AppointmentsService, BarbersService, ServicesService} from "@/common/api.service";
 import {
-    AppointmentsService,
-    BarbersService,
-    ServicesService
-} from "@/common/api.service";
-import {
+    APPOINTMENT_RESET_STATE,
     APPOINTMENT_SCHEDULE,
-    APPOINTMENT_SET_CLIENT_NAME,
-    APPOINTMENT_SET_CLIENT_EMAIL,
     APPOINTMENT_SET_BARBER,
-    APPOINTMENT_SET_SERVICE,
+    APPOINTMENT_SET_CLIENT_EMAIL,
+    APPOINTMENT_SET_CLIENT_NAME,
     APPOINTMENT_SET_DATE,
+    APPOINTMENT_SET_SERVICE,
     APPOINTMENT_SET_TIME,
+    APPOINTMENT_UNSET_DATE,
+    APPOINTMENT_UNSET_TIME,
     FETCH_BARBERS,
-    FETCH_UPCOMING_APPOINTMENTS,
-    FETCH_SERVICES, APPOINTMENT_RESET_STATE, APPOINTMENT_UNSET_DATE, APPOINTMENT_UNSET_TIME
+    FETCH_SERVICES,
+    FETCH_UPCOMING_APPOINTMENTS
 } from "./actions.type";
 import {
+    RESET_APPOINTMENT_STATE,
     SET_BARBER,
-    SET_SERVICE,
-    SET_DATE,
-    UNSET_DATE,
-    SET_TIME,
-    UNSET_TIME,
-    SET_CLIENT_NAME,
     SET_CLIENT_EMAIL,
-    SET_UPCOMING_APPOINTMENTS,
+    SET_CLIENT_NAME,
+    SET_DATE,
     SET_FETCHED_BARBERS,
-    SET_FETCHED_SERVICES, RESET_APPOINTMENT_STATE
+    SET_FETCHED_SERVICES,
+    SET_SERVICE,
+    SET_TIME,
+    SET_UPCOMING_APPOINTMENTS,
+    UNSET_DATE,
+    UNSET_TIME
 } from "./mutations.type";
 
 const initialAppointmentState = {
@@ -93,17 +92,17 @@ export const actions = {
         context.commit(SET_CLIENT_EMAIL, email);
     },
     async [FETCH_BARBERS](context) {
-        const { data } = await BarbersService.get();
+        const {data} = await BarbersService.get();
         context.commit(SET_FETCHED_BARBERS, data.barbers);
         return data.barbers;
     },
     async [FETCH_SERVICES](context) {
-        const { data } = await ServicesService.get();
+        const {data} = await ServicesService.get();
         context.commit(SET_FETCHED_SERVICES, data.services);
         return data.services;
     },
     async [FETCH_UPCOMING_APPOINTMENTS](context, barberId) {
-        const { data } = await AppointmentsService.getUpcomingAppointments(barberId);
+        const {data} = await AppointmentsService.getUpcomingAppointments(barberId);
         context.commit(SET_UPCOMING_APPOINTMENTS, data.upcomingAppointments);
         return data.upcomingAppointments;
     },

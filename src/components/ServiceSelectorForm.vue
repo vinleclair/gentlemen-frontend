@@ -4,8 +4,8 @@
             <v-row justify="center">
                 <v-col
                         :key="`service-${index}`"
-                        md="4"
                         align="center"
+                        md="4"
                         v-for="(service, index) in fetchedServices"
                 >
                     <v-card
@@ -17,7 +17,8 @@
                                 :src="service.imagePath"
                         />
                     </v-card>
-                    <p class="font-weight-black headline">{{service.name + " -- " + service.price +  "$ -- " + service.duration + " mins"}}</p>
+                    <p class="font-weight-black headline">{{service.name + " -- " + service.price + "$ -- " +
+                        service.duration + " mins"}}</p>
                 </v-col>
             </v-row>
         </v-item-group>
@@ -26,23 +27,20 @@
 
 
 <script>
-    import {
-        APPOINTMENT_SET_SERVICE,
-        FETCH_SERVICES
-    } from "../store/actions.type";
+    import {APPOINTMENT_SET_SERVICE, FETCH_SERVICES} from "../store/actions.type";
     import {mapGetters} from "vuex";
 
     export default {
+        computed: {
+            ...mapGetters(["appointment", "fetchedServices"]),
+        },
+        mounted() {
+            this.$store.dispatch(FETCH_SERVICES);
+        },
         methods: {
             onSelectService(service) {
                 this.$store.dispatch(APPOINTMENT_SET_SERVICE, service);
             }
         },
-        mounted() {
-            this.$store.dispatch(FETCH_SERVICES);
-        },
-        computed: {
-            ...mapGetters(["appointment", "fetchedServices"]),
-        }
     }
 </script>

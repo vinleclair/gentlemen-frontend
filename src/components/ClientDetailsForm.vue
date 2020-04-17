@@ -4,35 +4,32 @@
             v-model="valid"
     >
         <v-container>
-        <v-row justify="center">
-            <v-col align="center">
+            <v-row justify="center">
+                <v-col align="center">
 
-        <v-text-field
-                v-model="clientName"
-                :rules="clientNameRules"
-                label="Name"
-                style="width: 25%;"
-                required
-        ></v-text-field>
-        <v-text-field
-                justify="center"
-                style="width: 25%;"
-                v-model="clientEmail"
-                :rules="clientEmailRules"
-                label="Email"
-                required
-        ></v-text-field>
-            </v-col>
-        </v-row>
+                    <v-text-field
+                            :rules="clientNameRules"
+                            label="Name"
+                            required
+                            style="width: 25%;"
+                            v-model="clientName"
+                    ></v-text-field>
+                    <v-text-field
+                            :rules="clientEmailRules"
+                            justify="center"
+                            label="Email"
+                            required
+                            style="width: 25%;"
+                            v-model="clientEmail"
+                    ></v-text-field>
+                </v-col>
+            </v-row>
         </v-container>
     </v-form>
 </template>
 
 <script>
-    import {
-        APPOINTMENT_SET_CLIENT_NAME,
-        APPOINTMENT_SET_CLIENT_EMAIL,
-    } from "../store/actions.type";
+    import {APPOINTMENT_SET_CLIENT_EMAIL, APPOINTMENT_SET_CLIENT_NAME,} from "../store/actions.type";
     import {mapGetters} from "vuex";
 
     export default {
@@ -68,11 +65,10 @@
                 }
             },
         },
-
-            watch: {
-                valid: function()  {
-                    this.$emit('client-form-validity')
-                }
+        watch: {
+            valid: function () {
+                this.$emit('client-form-validity')
             }
+        }
     };
 </script>

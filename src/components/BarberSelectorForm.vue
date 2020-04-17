@@ -1,11 +1,11 @@
 <template>
     <v-container>
-    <v-item-group>
+        <v-item-group>
             <v-row justify="center">
                 <v-col
                         :key="`barber-${index}`"
-                        md="4"
                         align="center"
+                        md="4"
                         v-for="(barber, index) in fetchedBarbers"
                 >
                     <v-card
@@ -20,17 +20,17 @@
                     <p class="font-weight-black headline" style="font-size: 150%">{{barber.name}}</p>
                 </v-col>
             </v-row>
-    </v-item-group>
+        </v-item-group>
     </v-container>
 </template>
 
 <script>
     import {
         APPOINTMENT_SET_BARBER,
-        FETCH_BARBERS,
-        FETCH_UPCOMING_APPOINTMENTS,
         APPOINTMENT_UNSET_DATE,
-        APPOINTMENT_UNSET_TIME
+        APPOINTMENT_UNSET_TIME,
+        FETCH_BARBERS,
+        FETCH_UPCOMING_APPOINTMENTS
     } from "../store/actions.type";
     import {mapGetters} from "vuex";
 
@@ -41,6 +41,12 @@
                 selectedBarberId: null,
             };
         },
+        computed: {
+            ...mapGetters(["fetchedBarbers", "appointment"]),
+        },
+        mounted() {
+            this.$store.dispatch(FETCH_BARBERS);
+        },
         methods: {
             onSelectBarber(barber) {
                 this.$store.dispatch(APPOINTMENT_SET_BARBER, barber);
@@ -49,11 +55,5 @@
                 this.$store.dispatch(FETCH_UPCOMING_APPOINTMENTS, barber.barberId)
             }
         },
-        mounted() {
-            this.$store.dispatch(FETCH_BARBERS);
-        },
-        computed: {
-            ...mapGetters(["fetchedBarbers", "appointment"]),
-        }
     }
 </script>

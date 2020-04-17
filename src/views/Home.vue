@@ -36,10 +36,10 @@
 
                                 </v-col>
                                 <v-btn
+                                        @click="$vuetify.goTo('#about-us')"
                                         class="align-center"
                                         fab
                                         outlined
-                                        @click="$vuetify.goTo('#about-us')"
                                 >
                                     <v-icon>mdi-chevron-double-down</v-icon>
                                 </v-btn>
@@ -97,26 +97,26 @@
 
         <section id="appointment-booker">
             <div class="py-12"></div>
-                <v-container class="text-center">
-                    <h2 class="display-2 font-weight-bold mb-3">BOOK APPOINTMENT</h2>
+            <v-container class="text-center">
+                <h2 class="display-2 font-weight-bold mb-3">BOOK APPOINTMENT</h2>
 
-                    <v-responsive
-                            class="mx-auto mb-8"
-                            width="56"
-                    >
-                        <v-divider class="mb-1"></v-divider>
+                <v-responsive
+                        class="mx-auto mb-8"
+                        width="56"
+                >
+                    <v-divider class="mb-1"></v-divider>
 
-                        <v-divider></v-divider>
-                    </v-responsive>
-                </v-container>
+                    <v-divider></v-divider>
+                </v-responsive>
+            </v-container>
             <AppointmentBooker/>
             <div class="py-12"></div>
         </section>
 
         <v-sheet
-                id="contact-us"
                 color="secondary"
                 dark
+                id="contact-us"
                 tag="section"
                 tile
         >

@@ -6,8 +6,8 @@
             </v-stepper-step>
 
             <v-stepper-content step="1">
-                <BarberSelectorForm />
-                <v-btn color="primary" @click="step = 2" :disabled="!appointment.barberId">Continue</v-btn>
+                <BarberSelectorForm/>
+                <v-btn :disabled="!appointment.barberId" @click="step = 2" color="primary">Continue</v-btn>
             </v-stepper-content>
 
             <v-stepper-step :complete="step > 2" step="2">Select service
@@ -15,9 +15,9 @@
             </v-stepper-step>
 
             <v-stepper-content step="2">
-                <ServiceSelectorForm />
-                <v-btn color="primary" @click="step = 3" :disabled="!appointment.serviceId">Continue</v-btn>
-                <v-btn text @click="step = 1">Back</v-btn>
+                <ServiceSelectorForm/>
+                <v-btn :disabled="!appointment.serviceId" @click="step = 3" color="primary">Continue</v-btn>
+                <v-btn @click="step = 1" text>Back</v-btn>
             </v-stepper-content>
 
             <v-stepper-step :complete="step > 3" step="3">Select available timeslot
@@ -25,11 +25,11 @@
             </v-stepper-step>
 
             <v-stepper-content step="3">
-                <DatetimeSelectorForm />
-                <v-btn color="primary" @click="step = 4"
-                       :disabled="!(appointment.date && appointment.time)">Continue
+                <DatetimeSelectorForm/>
+                <v-btn :disabled="!(appointment.date && appointment.time)" @click="step = 4"
+                       color="primary">Continue
                 </v-btn>
-                <v-btn text @click="step = 2">Back</v-btn>
+                <v-btn @click="step = 2" text>Back</v-btn>
             </v-stepper-content>
 
             <v-stepper-step :complete="step > 4" step="4">Enter details
@@ -38,10 +38,10 @@
 
             <v-stepper-content step="4">
                 <ClientDetailsForm v-on:client-form-validity="clientFormIsValid = !clientFormIsValid"/>
-                <v-btn color="primary" @click="step = 5"
-                       :disabled="!(clientFormIsValid)">Continue
+                <v-btn :disabled="!(clientFormIsValid)" @click="step = 5"
+                       color="primary">Continue
                 </v-btn>
-                <v-btn text @click="step = 3">Back</v-btn>
+                <v-btn @click="step = 3" text>Back</v-btn>
             </v-stepper-content>
 
             <v-stepper-step :complete="step > 5" step="5">Review
@@ -49,29 +49,29 @@
             </v-stepper-step>
 
             <v-stepper-content step="5">
-                <ReviewInformationForm />
+                <ReviewInformationForm/>
                 <v-btn
-                        ref="book"
-                        color="success"
                         @click="book(appointment)"
+                        color="success"
+                        ref="book"
                 >
                     Book
                 </v-btn>
-                <v-btn text @click="step = 4">Back</v-btn>
+                <v-btn @click="step = 4" text>Back</v-btn>
             </v-stepper-content>
             <v-fade-transition>
-            <v-row v-if="step === 6" justify="center">
-                <v-col align="center">
-                    <v-btn
-                            large
-                            color="primary"
-                            ref="resetForm"
-                            @click="reset()"
-                    >
-                        Book Another Appointment
-                    </v-btn>
-                </v-col>
-            </v-row>
+                <v-row justify="center" v-if="step === 6">
+                    <v-col align="center">
+                        <v-btn
+                                @click="reset()"
+                                color="primary"
+                                large
+                                ref="resetForm"
+                        >
+                            Book Another Appointment
+                        </v-btn>
+                    </v-col>
+                </v-row>
             </v-fade-transition>
         </v-stepper>
     </v-container>
