@@ -4,7 +4,7 @@
             <v-row no-gutters>
                 <v-img
                         :min-height="'calc(100vh - ' + $vuetify.application.top + 'px)'"
-                        src="@/assets/images/bg.png"
+                        src="../assets/images/bg.png"
                 >
                     <v-theme-provider dark>
                         <v-container fill-height>
@@ -90,7 +90,7 @@
         <section id="parallax">
             <v-parallax
                     :height="$vuetify.breakpoint.smAndDown ? 700 : 600"
-                    src="@/assets/images/parallax.png"
+                    src="../assets/images/parallax.png"
             >
             </v-parallax>
         </section>
