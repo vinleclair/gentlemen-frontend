@@ -12,4 +12,5 @@ export const UNSET_DATE = "unsetDate";
 export const SET_TIME = "setTime";
 export const UNSET_TIME = "unsetTime";
 export const SET_CLIENT_NAME = "setClientName";
-export const SET_CLIENT_EMAIL = "setClientEmail";
+export const SET_CLIENT_EMAIL = "setClientEmail"
+export const RESET_APPOINTMENT_STATE = "resetAppointmentState";

@@ -12,3 +12,4 @@ export const APPOINTMENT_SET_DATE = "setAppointmentDate";
 export const APPOINTMENT_SET_TIME = "setAppointmentTime";
 export const APPOINTMENT_SET_CLIENT_NAME = "setAppointmentClientName";
 export const APPOINTMENT_SET_CLIENT_EMAIL = "setAppointmentClientEmail";
+export const APPOINTMENT_RESET_STATE = "resetAppointmentState";

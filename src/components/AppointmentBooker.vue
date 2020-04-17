@@ -84,7 +84,7 @@
     import ClientDetailsForm from "@/components/ClientDetailsForm"
     import ReviewInformationForm from "@/components/ReviewInformationForm"
     import {mapGetters} from "vuex";
-    import {APPOINTMENT_SCHEDULE} from "../store/actions.type";
+    import {APPOINTMENT_RESET_STATE, APPOINTMENT_SCHEDULE} from "../store/actions.type";
 
     export default {
         name: 'AppointmentBooker',
@@ -114,8 +114,9 @@
                 this.step = 6;
 
             },
-            reset(appointment) {
-
+            reset() {
+                this.$store.dispatch(APPOINTMENT_RESET_STATE);
+                this.step = 1
             }
         }
     }

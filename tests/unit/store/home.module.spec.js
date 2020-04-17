@@ -1,4 +1,5 @@
 import {
+    APPOINTMENT_RESET_STATE,
     APPOINTMENT_SCHEDULE,
     APPOINTMENT_SET_BARBER,
     APPOINTMENT_SET_CLIENT_EMAIL,
@@ -14,6 +15,7 @@ import {
 } from "../../../src/store/actions.type";
 import {actions, getters, mutations} from "../../../src/store/home.module";
 import {
+    RESET_APPOINTMENT_STATE,
     SET_BARBER,
     SET_CLIENT_EMAIL,
     SET_CLIENT_NAME,
@@ -246,6 +248,15 @@ describe("Actions", () => {
 
         expect(commitFunction.mock.calls[0][0]).toBe(SET_CLIENT_EMAIL);
     })
+
+    it("reset appointment state on appointment reset state action", () => {
+        const commitFunction = jest.fn();
+        const context = {commit: commitFunction}
+
+        actions[APPOINTMENT_RESET_STATE](context);
+
+        expect(commitFunction.mock.calls[0][0]).toBe(RESET_APPOINTMENT_STATE);
+    })
 });
 
 describe("Mutations", () => {
@@ -435,6 +446,32 @@ describe("Mutations", () => {
         expect(state).toEqual({
             appointment: {
                 clientEmail: "john.doe@example.com"
+            },
+        })
+    })
+
+    it("reset appointment state", () => {
+        const state = {
+            appointment: {
+                clientName: "John Doe",
+                clientEmail: "john.doe@example.com",
+                barberId: 1,
+                serviceId: 1,
+                date: "2020-01-01",
+                time: "12:00",
+            },
+        }
+
+        mutations[RESET_APPOINTMENT_STATE](state)
+
+        expect(state).toEqual({
+            appointment: {
+                clientName: "",
+                clientEmail: "",
+                barberId: "",
+                serviceId: "",
+                date: "",
+                time: "",
             },
         })
     })
