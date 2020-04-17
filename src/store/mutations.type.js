@@ -3,7 +3,6 @@ export const SET_FETCHED_SERVICES = "setFetchedServices";
 export const SET_UPCOMING_APPOINTMENTS = "setUpcomingAppointments";
 
 // APPOINTMENT
-export const SET_APPOINTMENT = "setAppointment";
 export const SET_BARBER = "setBarber";
 export const UNSET_BARBER = "unsetBarber";
 export const SET_SERVICE = "setService";

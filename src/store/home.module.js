@@ -19,7 +19,6 @@ import {
     FETCH_SERVICES
 } from "./actions.type";
 import {
-    SET_APPOINTMENT,
     SET_BARBER,
     UNSET_BARBER,
     SET_SERVICE,
@@ -105,9 +104,6 @@ export const actions = {
 };
 
 export const mutations = {
-    [SET_APPOINTMENT](state, appointment) {
-        state.appointment = appointment;
-    },
     [SET_BARBER](state, barber) {
         state.appointment.barberId = barber.barberId;
         state.selections.barberName = barber.name
