@@ -7,8 +7,8 @@
 </template>
 
 <script>
-    import GmHeader from "@/components/TheHeader";
-    import GmFooter from "@/components/TheFooter";
+    import GmHeader from "./components/TheHeader";
+    import GmFooter from "./components/TheFooter";
 
 
     export default {

@@ -164,7 +164,7 @@
 </template>
 
 <script>
-    import AppointmentBooker from "@/components/AppointmentBooker";
+    import AppointmentBooker from "../components/AppointmentBooker";
 
     export default {
         name: 'Home',

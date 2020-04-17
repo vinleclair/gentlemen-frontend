@@ -78,11 +78,11 @@
 </template>
 
 <script>
-    import BarberSelectorForm from "@/components/BarberSelectorForm";
-    import ServiceSelectorForm from "@/components/ServiceSelectorForm";
-    import DatetimeSelectorForm from "@/components/DatetimeSelectorForm";
-    import ClientDetailsForm from "@/components/ClientDetailsForm"
-    import ReviewInformationForm from "@/components/ReviewInformationForm"
+    import BarberSelectorForm from "../components/BarberSelectorForm";
+    import ServiceSelectorForm from "../components/ServiceSelectorForm";
+    import DatetimeSelectorForm from "../components/DatetimeSelectorForm";
+    import ClientDetailsForm from "../components/ClientDetailsForm"
+    import ReviewInformationForm from "../components/ReviewInformationForm"
     import {mapGetters} from "vuex";
     import {APPOINTMENT_RESET_STATE, APPOINTMENT_SCHEDULE} from "../store/actions.type";
 
