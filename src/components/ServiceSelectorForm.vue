@@ -14,7 +14,7 @@
                     >
                         <v-img
                                 :gradient="appointment.serviceId !== service.serviceId ? 'rgba(121,85,64,.75), rgba(161,136,117, .5)' : '' "
-                                :src="`${publicPath}` + 'img/' + service.name + '.png'"
+                                :src="`${publicPath}` + 'img/' + service.name.toLowerCase() + '.png'"
                         />
                     </v-card>
                     <p class="font-weight-black headline">{{service.name + " - " + service.price + "$ - " +
