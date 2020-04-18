@@ -14,7 +14,7 @@
                     >
                         <v-img
                                 :gradient="appointment.barberId !== barber.barberId ? 'rgba(121,85,64,.75), rgba(161,136,117, .5)' : '' "
-                                :src="barber.imagePath"
+                                :src="'.' + barber.imagePath"
                         />
                     </v-card>
                     <p class="font-weight-black headline" style="font-size: 150%">{{barber.name}}</p>
