@@ -14,7 +14,7 @@
                     >
                         <v-img
                                 :gradient="appointment.serviceId !== service.serviceId ? 'rgba(121,85,64,.75), rgba(161,136,117, .5)' : '' "
-                                :src="service.imagePath"
+                                :src="`${publicPath}` + 'img/' + service.name + '.png'"
                         />
                     </v-card>
                     <p class="font-weight-black headline">{{service.name + " - " + service.price + "$ - " +
@@ -31,6 +31,11 @@
     import {mapGetters} from "vuex";
 
     export default {
+        data () {
+            return {
+                publicPath: process.env.BASE_URL
+            }
+        },
         computed: {
             ...mapGetters(["appointment", "fetchedServices"]),
         },
