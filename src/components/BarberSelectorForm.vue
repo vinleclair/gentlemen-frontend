@@ -14,7 +14,7 @@
                     >
                         <v-img
                                 :gradient="appointment.barberId !== barber.barberId ? 'rgba(121,85,64,.75), rgba(161,136,117, .5)' : '' "
-                                :src="'.' + barber.imagePath"
+                                :src="`${publicPath}` + 'img/' + barber.name + '.png'"
                         />
                     </v-card>
                     <p class="font-weight-black headline" style="font-size: 150%">{{barber.name}}</p>
@@ -36,6 +36,11 @@
 
     export default {
         name: "BarberSelectorForm",
+        data () {
+            return {
+                publicPath: process.env.BASE_URL
+            }
+        },
         computed: {
             ...mapGetters(["fetchedBarbers", "appointment"]),
         },
